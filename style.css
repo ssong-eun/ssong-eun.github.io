@@ -1,0 +1,186 @@
+body {
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    color: #333;
+    text-align: center;
+    /* 배경색은 JS에서 동적으로 설정되므로 CSS에서는 제거 */
+}
+
+/* 루트 요소에 CSS 변수 기본값 정의 (JS에서 이 값들을 덮어씁니다) */
+:root {
+    --main-btn-bg: #f7a59a; /* 답변 버튼 기본색 */
+    --main-btn-hover-bg: #e9573f; /* 답변 버튼 호버색 */
+    --share-btn-bg: #7ab3a7; /* 공유 버튼 기본색 */
+    --share-btn-hover-bg: #5c8f85; /* 공유 버튼 호버색 */
+}
+
+.container {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    width: 90%; /* 화면 너비의 90% 차지 */
+    max-width: 500px; /* 최대 너비 제한 */
+    box-sizing: border-box; /* 패딩과 보더가 너비에 포함되도록 */
+}
+
+h1 {
+    margin-bottom: 25px;
+    font-size: 2.2em; /* 기본 제목 크기 */
+}
+
+.question-container {
+    margin-bottom: 20px;
+}
+
+#question-text {
+    font-size: 1.3em;
+    margin-bottom: 25px;
+    line-height: 1.5;
+    color: #555;
+}
+
+.answer-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.btn {
+    background-color: var(--main-btn-bg);
+    color: white;
+    border: none;
+    padding: 15px 20px;
+    border-radius: 8px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%; /* 버튼이 부모 컨테이너 너비를 꽉 채우도록 */
+    box-sizing: border-box; /* 패딩과 보더가 너비에 포함되도록 */
+}
+
+.btn:hover {
+    background-color: var(--main-btn-hover-bg);
+}
+
+.result-container {
+    margin-top: 30px;
+}
+
+.result-container h2 {
+    margin-bottom: 15px;
+    font-size: 2em; /* 기본 결과 제목 크기 */
+}
+
+.result-container p {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    color: #444;
+    font-weight: bold;
+}
+
+#restart-button {
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* JS에서 배경색 직접 제어 */
+}
+
+/* 공유 버튼 스타일 */
+.share-buttons {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap; /* 작은 화면에서 버튼이 줄바꿈 되도록 */
+}
+
+.share-btn {
+    background-color: var(--share-btn-bg);
+    padding: 12px 20px;
+    font-size: 1em;
+    flex-grow: 1;
+    max-width: 200px; /* 너무 커지지 않도록 최대 너비 설정 */
+    box-sizing: border-box; /* 패딩과 보더가 너비에 포함되도록 */
+}
+
+.share-btn:hover {
+    background-color: var(--share-btn-hover-bg);
+}
+
+/* ★★★★★ 반응형 디자인을 위한 미디어 쿼리 추가 ★★★★★ */
+
+/* 작은 화면 (모바일)에 대한 스타일 */
+@media (max-width: 600px) {
+    .container {
+        padding: 20px; /* 작은 화면에서 컨테이너 패딩 줄임 */
+        width: 95%; /* 작은 화면에서 너비를 더 늘림 */
+        margin: 10px; /* 가장자리에 약간의 여백 추가 */
+    }
+
+    h1 {
+        font-size: 1.8em; /* 작은 화면에서 제목 크기 줄임 */
+    }
+
+    #question-text {
+        font-size: 1.1em; /* 작은 화면에서 질문 텍스트 크기 줄임 */
+    }
+
+    .btn {
+        padding: 12px 15px; /* 작은 화면에서 버튼 패딩 줄임 */
+        font-size: 1em; /* 작은 화면에서 버튼 폰트 크기 줄임 */
+    }
+
+    .result-container h2 {
+        font-size: 1.8em; /* 작은 화면에서 결과 제목 크기 줄임 */
+    }
+
+    .result-container p {
+        font-size: 1em; /* 작은 화면에서 결과 텍스트 크기 줄임 */
+    }
+
+    .share-btn {
+        flex-basis: 100%; /* 작은 화면에서 공유 버튼들이 전체 너비를 차지하도록 */
+        max-width: unset; /* 최대 너비 제한 해제 */
+        margin-bottom: 5px; /* 버튼 간격 추가 */
+    }
+
+    .share-buttons {
+        flex-direction: column; /* 작은 화면에서 공유 버튼들을 세로로 쌓음 */
+        gap: 8px; /* 버튼 사이 간격 줄임 */
+    }
+}
+
+/* 아주 작은 화면을 위한 추가 조정 */
+@media (max-width: 400px) {
+    .container {
+        padding: 15px;
+    }
+    h1 {
+        font-size: 1.6em;
+    }
+    #question-text {
+        font-size: 1em;
+    }
+    .btn {
+        font-size: 0.95em;
+    }
+    .result-container h2 {
+        font-size: 1.6em;
+    }
+    .result-container p {
+        font-size: 0.9em;
+    }
+}
