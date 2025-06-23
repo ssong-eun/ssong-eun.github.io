@@ -5,30 +5,68 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>오늘의 행운 테스트</title>
 
+
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8934272925138890"
      crossorigin="anonymous"></script>
 
+
+
+
     <link rel="stylesheet" href="style.css">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_ADSENSE_PUBLISHER_ID" crossorigin="anonymous"></script>
 </head>
 <body>
     <div class="container">
         <h1>오늘의 행운 테스트</h1>
-        <div id="question-container" class="question-container">
-            <p id="question-text"></p>
+
+        <div class="intro-section">
+            <p class="intro-text highlight">안녕하세요!</p>
+            <p class="intro-text">바쁜 일상 속 작은 즐거움을 위해 <br> <strong style="color: var(--h1-color);">오늘의 행운</strong>을 알아보는 심리 테스트를 만들었습니다.</p>
+            <p class="intro-text">몇 가지 간단한 질문에 솔직하게 답해 보세요.<br> 당신의 잠재된 심리적 경향을 바탕으로 <br> 오늘의 <strong style="color: var(--h1-color);">행운의 색깔과 숫자</strong>를 찾아드립니다.</p>
+
+            <div id="start-button-container" class="start-button-container">
+                <button id="start-quiz-button" class="btn">테스트 시작하기</button>
+            </div>
+
+            <p class="intro-text small-text">이 테스트는 과학적인 분석이 아닌, <br> 오직 **재미와 긍정적인 에너지**를 위한 것입니다.<br> 친구들과 결과를 공유하며 오늘의 특별한 lucky를 나눠보세요! ✨</p>
+        </div>
+
+        <div id="question-container" class="question-container" style="display:none;"> <p id="question-text"></p>
             <div id="answer-buttons" class="answer-buttons">
                 </div>
         </div>
+
         <div id="result-container" class="result-container" style="display:none;">
             <h2>당신의 행운은...</h2>
             <p id="lucky-color-text"></p>
             <p id="lucky-number-text"></p>
-
-            <div class="share-buttons">
+            <p id="lucky-description-text"></p> <div class="share-buttons">
                 <button id="share-web-button" class="btn share-btn">결과 공유하기</button>
                 <button id="copy-link-button" class="btn share-btn">링크 복사하기</button>
             </div>
+
             <button id="restart-button">다시 하기</button>
         </div>
+
+        <div class="faq-section">
+            <h2>자주 묻는 질문 (FAQ)</h2>
+            <div class="faq-item">
+                <h3>Q: 이 테스트는 과학적인가요?</h3>
+                <p>A: 이 테스트는 심리학적 또는 과학적 근거를 바탕으로 하지 않습니다. 오직 사용자에게 즐거움과 재미를 제공하기 위해 고안된 심리 테스트입니다. 결과는 가볍게 즐겨주세요!</p>
+            </div>
+            <div class="faq-item">
+                <h3>Q: 테스트 결과가 매번 달라질 수 있나요?</h3>
+                <p>A: 네, 질문에 대한 당신의 답변에 따라 결과는 달라질 수 있습니다. 또한, 앱이 새로 로드될 때마다 배경색과 버튼 색상이 무작위로 변경되어 매번 새로운 경험을 제공합니다.</p>
+            </div>
+            <div class="faq-item">
+                <h3>Q: 제 개인 정보는 안전하게 보호되나요?</h3>
+                <p>A: 이 앱은 어떠한 개인 정보도 수집하거나 저장하지 않습니다. 모든 테스트 과정은 당신의 웹 브라우저 내에서만 이루어지며, 데이터가 외부로 전송되지 않습니다. 안심하고 즐기세요!</p>
+            </div>
+        </div>
+
+        <div class="footer-section">
+            <p>&copy; 2025 오늘의 행운 테스트  allright reserved</p>
+            </div>
     </div>
 
     <script src="script.js"></script>
