@@ -1,38 +1,120 @@
+/* 기본 리셋 및 전체 페이지 스타일 */
 body {
     font-family: 'Arial', sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+    min-height: 100vh; /* 뷰포트 전체 높이를 차지하도록 */
     margin: 0;
-    color: #333;
-    text-align: center;
-    /* 배경색은 JS에서 동적으로 설정되므로 CSS에서는 제거 */
+    color: #333; /* 기본 글자색 */
+    text-align: center; /* 기본 텍스트 가운데 정렬 */
+    /* 배경색은 JavaScript에서 동적으로 설정됩니다. */
 }
 
-/* 루트 요소에 CSS 변수 기본값 정의 (JS에서 이 값들을 덮어씁니다) */
+/* 루트 요소에 CSS 변수 기본값 정의 (JavaScript에서 이 값들을 덮어씁니다) */
+/* 이 변수들은 버튼과 제목 색상에 사용됩니다. */
 :root {
     --main-btn-bg: #f7a59a; /* 답변 버튼 기본색 */
     --main-btn-hover-bg: #e9573f; /* 답변 버튼 호버색 */
     --share-btn-bg: #7ab3a7; /* 공유 버튼 기본색 */
     --share-btn-hover-bg: #5c8f85; /* 공유 버튼 호버색 */
+    --h1-color: #e9573f; /* 제목 및 하이라이트 텍스트 기본색 */
 }
 
+/* 메인 컨테이너 스타일 */
 .container {
     background-color: #fff;
     padding: 30px;
     border-radius: 15px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
     width: 90%; /* 화면 너비의 90% 차지 */
     max-width: 500px; /* 최대 너비 제한 */
     box-sizing: border-box; /* 패딩과 보더가 너비에 포함되도록 */
 }
 
+/* 제목 (h1) 스타일 */
 h1 {
     margin-bottom: 25px;
     font-size: 2.2em; /* 기본 제목 크기 */
+    color: var(--h1-color); /* JavaScript에서 설정된 색상 사용 */
 }
 
+/* 앱 소개 섹션 스타일 */
+.intro-section {
+    margin-top: -15px; /* 제목과의 간격 조절 */
+    margin-bottom: 30px; /* 아래 FAQ 섹션과의 간격 조절 */
+    padding: 15px 20px;
+    background-color: rgba(255, 255, 255, 0.8); /* 약간 투명한 배경 */
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    line-height: 1.6;
+    color: #666; /* 기본 텍스트 색상 */
+    font-size: 1.1em;
+    text-align: center; /* 텍스트 가운데 정렬 */
+}
+
+.intro-text {
+    margin: 5px 0; /* 줄 간격 조절 */
+}
+
+.intro-text.highlight {
+    font-weight: bold;
+    color: var(--h1-color); /* 제목 색상과 동일하게 동적 색상 사용 */
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+.intro-text.small-text {
+    font-size: 0.9em;
+    color: #888;
+    margin-top: 25px; /* 시작 버튼과의 간격 조절 */
+}
+
+/* 시작 버튼 컨테이너 스타일 */
+.start-button-container {
+    margin-top: 20px; /* 위쪽 간격 조절 */
+    margin-bottom: 0px; /* 아래쪽 간격 없음 */
+    text-align: center;
+}
+
+/* FAQ 섹션 스타일 */
+.faq-section {
+    margin-top: 40px; /* 시작 버튼 컨테이너와의 간격 */
+    margin-bottom: 40px;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    text-align: left; /* 텍스트 왼쪽 정렬 (FAQ 내용은 왼쪽 정렬이 더 가독성이 좋음) */
+}
+
+.faq-section h2 {
+    color: var(--h1-color);
+    font-size: 1.8em;
+    margin-top: 0;
+    margin-bottom: 20px;
+    text-align: center; /* FAQ 제목은 가운데 정렬 */
+}
+
+.faq-item {
+    margin-bottom: 20px;
+}
+
+.faq-item h3 {
+    color: #555;
+    font-size: 1.1em;
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
+.faq-item p {
+    color: #777;
+    font-size: 0.95em;
+    line-height: 1.5;
+    margin-top: 0;
+}
+
+/* 질문 컨테이너 스타일 */
 .question-container {
     margin-bottom: 20px;
 }
@@ -44,37 +126,42 @@ h1 {
     color: #555;
 }
 
+/* 답변 버튼 그룹 스타일 */
 .answer-buttons {
     display: flex;
-    flex-direction: column;
-    gap: 15px;
+    flex-direction: column; /* 버튼들을 세로 방향으로 쌓이도록 */
+    gap: 15px; /* 버튼들 사이의 간격 */
 }
 
+/* 일반 버튼 스타일 (답변 버튼, 공유 버튼에 공통 적용) */
 .btn {
-    background-color: var(--main-btn-bg);
+    background-color: var(--main-btn-bg); /* JavaScript에서 설정된 색상 사용 */
     color: white;
     border: none;
     padding: 15px 20px;
     border-radius: 8px;
     font-size: 1.1em;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease; /* 부드러운 색상 변화 */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 100%; /* 버튼이 부모 컨테이너 너비를 꽉 채우도록 */
-    box-sizing: border-box; /* 패딩과 보더가 너비에 포함되도록 */
+    box-sizing: border-box;
 }
 
+/* 버튼 호버 효과 */
 .btn:hover {
-    background-color: var(--main-btn-hover-bg);
+    background-color: var(--main-btn-hover-bg); /* JavaScript에서 설정된 색상 사용 */
 }
 
+/* 결과 컨테이너 스타일 */
 .result-container {
     margin-top: 30px;
 }
 
 .result-container h2 {
     margin-bottom: 15px;
-    font-size: 2em; /* 기본 결과 제목 크기 */
+    font-size: 2em;
+    color: var(--h1-color); /* 제목 색상과 동일하게 동적 색상 사용 */
 }
 
 .result-container p {
@@ -84,6 +171,18 @@ h1 {
     font-weight: bold;
 }
 
+#lucky-description-text {
+    font-size: 1.1em;
+    line-height: 1.6;
+    margin-top: 20px;
+    margin-bottom: 25px;
+    color: #555;
+    font-weight: normal; /* 결과 설명은 굵게 표시하지 않음 */
+    text-align: center;
+}
+
+
+/* "다시 하기" 버튼 스타일 (JavaScript에서 배경색 직접 제어) */
 #restart-button {
     color: white;
     border: none;
@@ -92,46 +191,115 @@ h1 {
     font-size: 1em;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    margin-top: 15px;
+    margin-top: 15px; /* 공유 버튼 섹션과의 간격 */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    /* JS에서 배경색 직접 제어 */
 }
 
-/* 공유 버튼 스타일 */
+/* 공유 버튼 그룹 스타일 */
 .share-buttons {
     margin-top: 20px;
     margin-bottom: 20px;
     display: flex;
     justify-content: center;
-    gap: 10px;
+    gap: 10px; /* 버튼들 사이의 간격 */
     flex-wrap: wrap; /* 작은 화면에서 버튼이 줄바꿈 되도록 */
 }
 
+/* 개별 공유 버튼 스타일 */
 .share-btn {
-    background-color: var(--share-btn-bg);
+    background-color: var(--share-btn-bg); /* JavaScript에서 설정된 색상 사용 */
     padding: 12px 20px;
     font-size: 1em;
-    flex-grow: 1;
+    flex-grow: 1; /* 가로 공간을 채우도록 */
     max-width: 200px; /* 너무 커지지 않도록 최대 너비 설정 */
-    box-sizing: border-box; /* 패딩과 보더가 너비에 포함되도록 */
+    box-sizing: border-box;
 }
 
 .share-btn:hover {
-    background-color: var(--share-btn-hover-bg);
+    background-color: var(--share-btn-hover-bg); /* JavaScript에서 설정된 색상 사용 */
 }
 
-/* ★★★★★ 반응형 디자인을 위한 미디어 쿼리 추가 ★★★★★ */
+/* 애드센스 광고 컨테이너 스타일 (선택 사항) */
+.ad-container {
+    margin: 20px auto; /* 위아래 여백, 가운데 정렬 */
+    max-width: 336px; /* 일반적인 직사각형 광고 최대 너비 예시 */
+    text-align: center;
+}
+
+/* 푸터 섹션 스타일 */
+.footer-section {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    font-size: 0.85em;
+    color: #777;
+    line-height: 1.5;
+}
+
+.footer-section a.footer-link {
+    color: #777;
+    text-decoration: underline;
+}
+
+.footer-section a.footer-link:hover {
+    color: #555;
+}
+
+
+/* ★★★ 반응형 디자인을 위한 미디어 쿼리 ★★★ */
 
 /* 작은 화면 (모바일)에 대한 스타일 */
 @media (max-width: 600px) {
     .container {
         padding: 20px; /* 작은 화면에서 컨테이너 패딩 줄임 */
         width: 95%; /* 작은 화면에서 너비를 더 늘림 */
-        margin: 10px; /* 가장자리에 약간의 여백 추가 */
+        margin: 10px auto; /* 가장자리에 약간의 여백 추가 및 가운데 정렬 */
     }
 
     h1 {
         font-size: 1.8em; /* 작은 화면에서 제목 크기 줄임 */
+    }
+
+    .intro-section {
+        padding: 10px 15px;
+        margin-bottom: 25px;
+        font-size: 1em;
+    }
+
+    .intro-text.highlight {
+        font-size: 1.1em;
+    }
+
+    .intro-text.small-text {
+        font-size: 0.85em;
+    }
+
+    .start-button-container {
+        margin-top: 20px;
+        margin-bottom: 20px; /* 모바일에서 간격 확보 */
+    }
+
+    .faq-section {
+        margin-top: 30px;
+        margin-bottom: 30px;
+        padding: 15px;
+    }
+
+    .faq-section h2 {
+        font-size: 1.5em;
+        margin-bottom: 15px;
+    }
+
+    .faq-item {
+        margin-bottom: 15px;
+    }
+
+    .faq-item h3 {
+        font-size: 1em;
+    }
+
+    .faq-item p {
+        font-size: 0.9em;
     }
 
     #question-text {
@@ -151,15 +319,30 @@ h1 {
         font-size: 1em; /* 작은 화면에서 결과 텍스트 크기 줄임 */
     }
 
-    .share-btn {
-        flex-basis: 100%; /* 작은 화면에서 공유 버튼들이 전체 너비를 차지하도록 */
-        max-width: unset; /* 최대 너비 제한 해제 */
-        margin-bottom: 5px; /* 버튼 간격 추가 */
+    #lucky-description-text {
+        font-size: 1em;
+        margin-top: 15px;
+        margin-bottom: 20px;
     }
 
     .share-buttons {
         flex-direction: column; /* 작은 화면에서 공유 버튼들을 세로로 쌓음 */
         gap: 8px; /* 버튼 사이 간격 줄임 */
+    }
+
+    .share-btn {
+        flex-basis: 100%; /* 작은 화면에서 공유 버튼들이 전체 너비를 차지하도록 */
+        max-width: unset; /* 최대 너비 제한 해제 */
+    }
+
+    .ad-container {
+        margin: 15px auto;
+        max-width: 95%;
+    }
+
+    .footer-section {
+        margin-top: 30px;
+        font-size: 0.8em;
     }
 }
 
@@ -171,16 +354,31 @@ h1 {
     h1 {
         font-size: 1.6em;
     }
+    .intro-section {
+        padding: 8px 10px;
+        margin-bottom: 20px;
+        font-size: 0.95em;
+    }
+    .intro-text.highlight {
+        font-size: 1.05em;
+    }
     #question-text {
         font-size: 1em;
     }
     .btn {
         font-size: 0.95em;
+        padding: 10px 12px;
     }
     .result-container h2 {
         font-size: 1.6em;
     }
     .result-container p {
         font-size: 0.9em;
+    }
+    #lucky-description-text {
+        font-size: 0.9em;
+    }
+    .footer-section {
+        font-size: 0.75em;
     }
 }
