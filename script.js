@@ -5,7 +5,7 @@ const answerButtons = document.getElementById('answer-buttons');
 const resultContainer = document.getElementById('result-container');
 const luckyColorText = document.getElementById('lucky-color-text');
 const luckyNumberText = document.getElementById('lucky-number-text');
-const luckyDescriptionText = document.getElementById('lucky-description-text'); // 결과 설명 텍스트 요소
+const luckyDescriptionText = document.getElementById('lucky-description-text');
 const restartButton = document.getElementById('restart-button');
 
 // 새로 추가된 공유 버튼 요소들
@@ -16,8 +16,8 @@ const copyLinkButton = document.getElementById('copy-link-button');
 const introSection = document.querySelector('.intro-section');
 const faqSection = document.querySelector('.faq-section');
 const footerSection = document.querySelector('.footer-section');
-const startButtonContainer = document.getElementById('start-button-container'); // 새로 추가된 시작 버튼 컨테이너
-const startQuizButton = document.getElementById('start-quiz-button'); // 새로 추가된 시작 버튼 자체
+const startButtonContainer = document.getElementById('start-button-container');
+const startQuizButton = document.getElementById('start-quiz-button');
 
 
 // 새로운 색상 팔레트 정의 (랜덤 색상 기능용)
@@ -133,17 +133,23 @@ function applyRandomColors() {
     document.documentElement.style.setProperty('--share-btn-hover-bg', randomPalette.shareBtnHover);
     document.documentElement.style.setProperty('--h1-color', randomPalette.h1Color);
 
-    restartButton.style.backgroundColor = randomPalette.restartBtn;
-    restartButton.onmouseover = () => restartButton.style.backgroundColor = randomPalette.restartBtnHover;
-    restartButton.onmouseout = () => restartButton.style.backgroundColor = randomPalette.restartBtn;
+    // 요소들이 모두 존재할 때만 색상 적용 시도
+    if (restartButton) {
+        restartButton.style.backgroundColor = randomPalette.restartBtn;
+        restartButton.onmouseover = () => restartButton.style.backgroundColor = randomPalette.restartBtnHover;
+        restartButton.onmouseout = () => restartButton.style.backgroundColor = randomPalette.restartBtn;
+    }
 
-    document.querySelector('h1').style.color = randomPalette.h1Color;
-    document.querySelector('.result-container h2').style.color = randomPalette.h1Color;
-    if (faqSection) {
+    if (document.querySelector('h1')) {
+        document.querySelector('h1').style.color = randomPalette.h1Color;
+    }
+    if (document.querySelector('.result-container h2')) {
+        document.querySelector('.result-container h2').style.color = randomPalette.h1Color;
+    }
+    if (faqSection && faqSection.querySelector('h2')) {
         faqSection.querySelector('h2').style.color = randomPalette.h1Color;
     }
 
-    // 시작 버튼의 색상도 동적으로 적용
     if (startQuizButton) {
         startQuizButton.style.backgroundColor = randomPalette.mainBtn;
         startQuizButton.onmouseover = () => startQuizButton.style.backgroundColor = randomPalette.mainBtnHover;
@@ -151,34 +157,42 @@ function applyRandomColors() {
     }
 }
 
+// 모든 섹션의 display 속성을 초기화하는 헬퍼 함수
+function hideAllSections() {
+    if (introSection) introSection.style.display = 'none';
+    if (faqSection) faqSection.style.display = 'none';
+    if (startButtonContainer) startButtonContainer.style.display = 'none';
+    questionContainer.style.display = 'none';
+    resultContainer.style.display = 'none';
+    if (footerSection) footerSection.style.display = 'none';
+}
+
+
 function startQuiz() {
     currentQuestionIndex = 0;
     totalScore = 0;
 
-    // 모든 메인 콘텐츠 컨테이너를 숨김
-    questionContainer.style.display = 'none';
-    resultContainer.style.display = 'none';
+    // 모든 섹션을 먼저 숨기고, 초기 화면에 필요한 것만 보이게 합니다.
+    hideAllSections();
 
-    // 소개, FAQ, 푸터, 시작 버튼 컨테이너를 보이게 함
+    // 초기 화면에 필요한 섹션만 보이게 합니다.
     if (introSection) introSection.style.display = 'block';
     if (faqSection) faqSection.style.display = 'block';
-    if (footerSection) footerSection.style.display = 'block';
-    if (startButtonContainer) startButtonContainer.style.display = 'block'; // 시작 버튼 컨테이너 보이게 함
+    if (startButtonContainer) startButtonContainer.style.display = 'block';
+    if (footerSection) footerSection.style.display = 'block'; // 푸터는 항상 보이게
 
-    // 답변 버튼 영역은 시작 버튼을 위해서 비워둠 (초기화)
-    resetState(); // 이전 답변 버튼이 남아있을 경우를 대비
+    // 답변 버튼 영역은 비워둠 (초기화)
+    resetState();
 
     applyRandomColors(); // 새로운 색상 팔레트 적용
 }
 
 // "테스트 시작하기" 버튼에 클릭 이벤트 리스너 추가
-// 이 리스너는 앱 로드 시점에 한 번만 등록됩니다.
-if (startQuizButton) { // startQuizButton이 존재할 때만 이벤트 리스너를 추가
+// 앱 로드 시점에 이 리스너는 한 번만 등록됩니다.
+if (startQuizButton) {
     startQuizButton.addEventListener('click', () => {
-        // 시작 버튼 컨테이너, 소개, FAQ 섹션 숨기기
-        if (startButtonContainer) startButtonContainer.style.display = 'none';
-        if (introSection) introSection.style.display = 'none';
-        if (faqSection) faqSection.style.display = 'none';
+        // 모든 섹션을 숨기고 질문 컨테이너만 보이게 합니다.
+        hideAllSections(); // ★★★ 숨기기 로직 다시 호출 ★★★
 
         questionContainer.style.display = 'block'; // 질문 컨테이너 표시
         showQuestion(); // 첫 질문 시작
@@ -222,9 +236,9 @@ function selectAnswer(e) {
 }
 
 function showResult() {
-    questionContainer.style.display = 'none';
-    resultContainer.style.display = 'block';
-    if (footerSection) footerSection.style.display = 'block';
+    hideAllSections(); // 모든 섹션을 숨김 (혹시 모를 잔여 요소 방지)
+    resultContainer.style.display = 'block'; // 결과 컨테이너만 보이게 함
+    if (footerSection) footerSection.style.display = 'block'; // 푸터는 결과 화면에서도 보이게 함
 
     let luckyColor = "알 수 없음";
     let luckyNumber = "알 수 없음";
@@ -279,9 +293,12 @@ function copyLink() {
         });
 }
 
-restartButton.addEventListener('click', startQuiz);
-shareWebButton.addEventListener('click', shareResult);
-copyLinkButton.addEventListener('click', copyLink);
+// 이벤트 리스너들은 해당 요소가 HTML에 존재할 때만 추가됩니다.
+// 이전에 함수 내에서 동적으로 생성하던 방식에서 HTML에 미리 존재하는 요소를 사용하도록 변경되었으므로,
+// 요소가 확실히 존재할 때만 addEventListener를 호출합니다.
+if (restartButton) restartButton.addEventListener('click', startQuiz);
+if (shareWebButton) shareWebButton.addEventListener('click', shareResult);
+if (copyLinkButton) copyLinkButton.addEventListener('click', copyLink);
 
 // 앱이 로드되면 퀴즈를 시작합니다.
 startQuiz();
