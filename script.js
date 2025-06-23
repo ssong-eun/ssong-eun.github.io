@@ -5,13 +5,22 @@ const answerButtons = document.getElementById('answer-buttons');
 const resultContainer = document.getElementById('result-container');
 const luckyColorText = document.getElementById('lucky-color-text');
 const luckyNumberText = document.getElementById('lucky-number-text');
+const luckyDescriptionText = document.getElementById('lucky-description-text'); // 결과 설명 텍스트 요소
 const restartButton = document.getElementById('restart-button');
 
 // 새로 추가된 공유 버튼 요소들
 const shareWebButton = document.getElementById('share-web-button');
 const copyLinkButton = document.getElementById('copy-link-button');
 
-// ★★★★★ 새로운 색상 팔레트 정의 ★★★★★
+// 추가된 콘텐츠 섹션들 (JavaScript로 제어)
+const introSection = document.querySelector('.intro-section');
+const faqSection = document.querySelector('.faq-section');
+const footerSection = document.querySelector('.footer-section');
+const startButtonContainer = document.getElementById('start-button-container'); // 새로 추가된 시작 버튼 컨테이너
+const startQuizButton = document.getElementById('start-quiz-button'); // 새로 추가된 시작 버튼 자체
+
+
+// 새로운 색상 팔레트 정의 (랜덤 색상 기능용)
 const colorPalettes = [
     {
         background: 'linear-gradient(to right, #ffecd2 0%, #fcb69f 100%)', // 복숭아색 계열
@@ -65,7 +74,6 @@ const colorPalettes = [
     }
 ];
 
-// 질문 데이터 배열입니다. (기존과 동일)
 const questions = [
     {
         question: "주말에 가장 하고 싶은 활동은 무엇인가요?",
@@ -105,53 +113,81 @@ const questions = [
     }
 ];
 
-// 결과 데이터입니다. (기존과 동일)
 const results = [
-    { minScore: 4, maxScore: 7, color: "파란색", number: 7 },
-    { minScore: 8, maxScore: 11, color: "초록색", number: 3 },
-    { minScore: 12, maxScore: 15, color: "주황색", number: 9 },
-    { minScore: 16, maxScore: 16, color: "보라색", number: 1 }
+    { minScore: 4, maxScore: 7, color: "파란색", number: 7, description: "파란색은 평화와 안정을 상징하며, 숫자 7은 행운의 상징입니다. 오늘은 차분하고 행운 가득한 하루가 될 거예요! 이 파란색 에너지를 활용하여 오늘은 명상 시간을 가져보거나, 차분한 음악을 들어보세요." },
+    { minScore: 8, maxScore: 11, color: "초록색", number: 3, description: "초록색은 성장과 활력을 나타내고, 숫자 3은 창의성을 의미합니다. 새로운 아이디어가 샘솟는 하루가 될 것입니다. 자연 속에서 산책을 하거나, 새로운 취미를 시작해 보는 것을 추천합니다." },
+    { minScore: 12, maxScore: 15, color: "주황색", number: 9, description: "주황색은 열정과 즐거움을 상징하고, 숫자 9는 완성의 숫자입니다. 오늘 당신의 노력이 결실을 맺을 거예요! 좋아하는 사람들과 맛있는 음식을 나누거나, 즐거운 파티를 계획해 보세요." },
+    { minScore: 16, maxScore: 16, color: "보라색", number: 1, description: "보라색은 영감과 신비로움을 나타내며, 숫자 1은 새로운 시작을 의미합니다. 오늘은 당신이 주인공이 되는 특별한 날이 될 것입니다. 당신의 직관을 믿고 새로운 도전을 시도해 보세요. 혼자만의 시간을 가지며 자신을 돌아보는 것도 좋습니다." }
 ];
 
 let currentQuestionIndex = 0;
 let totalScore = 0;
 
-// ★★★★★ 색상 적용 함수 추가 ★★★★★
 function applyRandomColors() {
     const randomPalette = colorPalettes[Math.floor(Math.random() * colorPalettes.length)];
 
-    // body 배경색 적용
     document.body.style.background = randomPalette.background;
-
-    // CSS 변수 설정
     document.documentElement.style.setProperty('--main-btn-bg', randomPalette.mainBtn);
     document.documentElement.style.setProperty('--main-btn-hover-bg', randomPalette.mainBtnHover);
     document.documentElement.style.setProperty('--share-btn-bg', randomPalette.shareBtn);
     document.documentElement.style.setProperty('--share-btn-hover-bg', randomPalette.shareBtnHover);
+    document.documentElement.style.setProperty('--h1-color', randomPalette.h1Color);
 
-    // 다시하기 버튼 색상 적용 (JS에서 직접 제어)
     restartButton.style.backgroundColor = randomPalette.restartBtn;
     restartButton.onmouseover = () => restartButton.style.backgroundColor = randomPalette.restartBtnHover;
     restartButton.onmouseout = () => restartButton.style.backgroundColor = randomPalette.restartBtn;
 
-    // 제목 색상 적용 (h1과 h2)
     document.querySelector('h1').style.color = randomPalette.h1Color;
     document.querySelector('.result-container h2').style.color = randomPalette.h1Color;
+    if (faqSection) {
+        faqSection.querySelector('h2').style.color = randomPalette.h1Color;
+    }
+
+    // 시작 버튼의 색상도 동적으로 적용
+    if (startQuizButton) {
+        startQuizButton.style.backgroundColor = randomPalette.mainBtn;
+        startQuizButton.onmouseover = () => startQuizButton.style.backgroundColor = randomPalette.mainBtnHover;
+        startQuizButton.onmouseout = () => startQuizButton.style.backgroundColor = randomPalette.mainBtn;
+    }
 }
 
-// 퀴즈를 시작하는 함수 (applyRandomColors 호출 추가)
 function startQuiz() {
     currentQuestionIndex = 0;
     totalScore = 0;
+
+    // 모든 메인 콘텐츠 컨테이너를 숨김
+    questionContainer.style.display = 'none';
     resultContainer.style.display = 'none';
-    questionContainer.style.display = 'block';
-    applyRandomColors(); // ★★★ 앱 시작 시 랜덤 색상 적용 ★★★
-    showQuestion();
+
+    // 소개, FAQ, 푸터, 시작 버튼 컨테이너를 보이게 함
+    if (introSection) introSection.style.display = 'block';
+    if (faqSection) faqSection.style.display = 'block';
+    if (footerSection) footerSection.style.display = 'block';
+    if (startButtonContainer) startButtonContainer.style.display = 'block'; // 시작 버튼 컨테이너 보이게 함
+
+    // 답변 버튼 영역은 시작 버튼을 위해서 비워둠 (초기화)
+    resetState(); // 이전 답변 버튼이 남아있을 경우를 대비
+
+    applyRandomColors(); // 새로운 색상 팔레트 적용
 }
 
-// 질문을 화면에 표시하는 함수 (버튼 색상 적용 방식 변경)
+// "테스트 시작하기" 버튼에 클릭 이벤트 리스너 추가
+// 이 리스너는 앱 로드 시점에 한 번만 등록됩니다.
+if (startQuizButton) { // startQuizButton이 존재할 때만 이벤트 리스너를 추가
+    startQuizButton.addEventListener('click', () => {
+        // 시작 버튼 컨테이너, 소개, FAQ 섹션 숨기기
+        if (startButtonContainer) startButtonContainer.style.display = 'none';
+        if (introSection) introSection.style.display = 'none';
+        if (faqSection) faqSection.style.display = 'none';
+
+        questionContainer.style.display = 'block'; // 질문 컨테이너 표시
+        showQuestion(); // 첫 질문 시작
+    });
+}
+
+
 function showQuestion() {
-    resetState();
+    resetState(); // 이전 질문의 버튼들을 초기화합니다.
     const question = questions[currentQuestionIndex];
     questionText.innerText = question.question;
 
@@ -160,27 +196,17 @@ function showQuestion() {
         button.innerText = answer.text;
         button.classList.add('btn');
         button.dataset.score = answer.score;
-
-        // 답변 버튼은 CSS 변수를 통해 색상을 가져오므로, JS에서 직접 설정할 필요 없음
-        // CSS의 .btn과 .btn:hover 규칙이 var(--main-btn-bg)를 참조하도록 이미 수정됨
-        // showQuestion 내부에서는 색상 적용 코드를 제거합니다.
-        // button.style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue('--main-btn-bg');
-        // button.onmouseover = () => button.style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue('--main-btn-hover-bg');
-        // button.onmouseout = () => button.style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue('--main-btn-bg');
-
         button.addEventListener('click', selectAnswer);
         answerButtons.appendChild(button);
     });
 }
 
-// 이전 질문의 버튼들을 제거하는 함수 (기존과 동일)
 function resetState() {
     while (answerButtons.firstChild) {
         answerButtons.removeChild(answerButtons.firstChild);
     }
 }
 
-// 답변을 선택했을 때 호출되는 함수 (기존과 동일)
 function selectAnswer(e) {
     const selectedButton = e.target;
     const score = parseInt(selectedButton.dataset.score);
@@ -195,31 +221,33 @@ function selectAnswer(e) {
     }
 }
 
-// 결과를 화면에 표시하는 함수 (기존과 동일)
 function showResult() {
     questionContainer.style.display = 'none';
     resultContainer.style.display = 'block';
+    if (footerSection) footerSection.style.display = 'block';
 
     let luckyColor = "알 수 없음";
     let luckyNumber = "알 수 없음";
+    let luckyDescription = "오늘 당신의 행운을 찾아냈습니다!";
 
     for (const result of results) {
         if (totalScore >= result.minScore && totalScore <= result.maxScore) {
             luckyColor = result.color;
             luckyNumber = result.number;
+            luckyDescription = result.description;
             break;
         }
     }
 
     luckyColorText.innerText = `오늘의 행운의 색깔: ${luckyColor}`;
     luckyNumberText.innerText = `오늘의 행운의 숫자: ${luckyNumber}`;
+    luckyDescriptionText.innerText = luckyDescription;
 }
 
-// 웹 공유 API를 사용하는 함수 (기존과 동일)
 function shareResult() {
     const luckyColor = luckyColorText.innerText;
     const luckyNumber = luckyNumberText.innerText;
-    const shareText = `✨ 오늘의 행운 테스트 결과 ✨\n\n${luckyColor}\n${luckyNumber}\n\n나의 행운을 확인해보세요!`;
+    const shareText = `✨ 오늘의 행운 테스트 결과 ✨\n\n${luckyColor}\n${luckyNumber}\n\n${luckyDescriptionText.innerText}\n\n나의 행운을 확인해보세요! ${window.location.href}`;
     const shareUrl = window.location.href;
 
     if (navigator.share) {
@@ -228,18 +256,17 @@ function shareResult() {
             text: shareText,
             url: shareUrl,
         }).then(() => {
-            console.log('결과 공유 성공!');
-        }).catch((error) => {
-            console.error('결과 공유 실패:', error);
-            alert('공유 실패: ' + error.message);
-        });
+                console.log('결과 공유 성공!');
+            })
+            .catch((error) => {
+                console.error('결과 공유 실패:', error);
+            });
     } else {
         alert('이 브라우저는 공유 기능을 지원하지 않습니다. 링크 복사 버튼을 이용해주세요!');
         console.warn('Web Share API is not supported in this browser.');
     }
 }
 
-// 링크를 클립보드에 복사하는 함수 (기존과 동일)
 function copyLink() {
     const currentUrl = window.location.href;
     navigator.clipboard.writeText(currentUrl)
@@ -252,16 +279,9 @@ function copyLink() {
         });
 }
 
-// "다시 하기" 버튼에 이벤트 리스너를 추가합니다.
 restartButton.addEventListener('click', startQuiz);
-
-// "결과 공유하기" 버튼에 이벤트 리스너 추가
 shareWebButton.addEventListener('click', shareResult);
-
-// "링크 복사하기" 버튼에 이벤트 리스너 추가
 copyLinkButton.addEventListener('click', copyLink);
 
 // 앱이 로드되면 퀴즈를 시작합니다.
 startQuiz();
-
-// --- CODE ENDS HERE ---
