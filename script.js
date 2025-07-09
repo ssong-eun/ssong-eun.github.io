@@ -5,7 +5,7 @@ const answerButtons = document.getElementById('answer-buttons');
 const resultContainer = document.getElementById('result-container');
 const luckyColorText = document.getElementById('lucky-color-text');
 const luckyNumberText = document.getElementById('lucky-number-text');
-const luckyDescriptionText = document.getElementById('lucky-description-text');
+const luckyDescriptionText = document.getElementById('lucky-description-text'); // 결과 설명 텍스트 요소
 const restartButton = document.getElementById('restart-button');
 
 // 새로 추가된 공유 버튼 요소들
@@ -74,7 +74,8 @@ const colorPalettes = [
     }
 ];
 
-const questions = [
+// 모든 질문 데이터 배열 (문제 종류)
+const allQuestions = [
     {
         question: "주말에 가장 하고 싶은 활동은 무엇인가요?",
         answers: [
@@ -110,18 +111,107 @@ const questions = [
             { text: "계획을 세우고 신중하게 접근한다", score: 3 },
             { text: "두렵지만 그래도 해내고 싶다", score: 4 }
         ]
+    },
+    { // 추가 질문 1
+        question: "가장 끌리는 디저트는 무엇인가요?",
+        answers: [
+            { text: "달콤한 초콜릿 케이크", score: 4 },
+            { text: "상큼한 과일 타르트", score: 3 },
+            { text: "부드러운 티라미수", score: 2 },
+            { text: "시원한 아이스크림", score: 1 }
+        ]
+    },
+    { // 추가 질문 2
+        question: "여행을 간다면 어떤 곳을 선호하나요?",
+        answers: [
+            { text: "역사적인 유적지", score: 3 },
+            { text: "활기찬 대도시", score: 2 },
+            { text: "조용한 자연 속 휴양지", score: 1 },
+            { text: "모험 가득한 미지의 장소", score: 4 }
+        ]
+    },
+    { // 추가 질문 3
+        question: "스트레스를 받을 때 어떻게 해소하는 편인가요?",
+        answers: [
+            { text: "좋아하는 음악 감상하기", score: 1 },
+            { text: "운동하거나 몸을 움직이기", score: 2 },
+            { text: "친구들과 수다 떨기", score: 3 },
+            { text: "혼자 조용히 생각 정리하기", score: 4 }
+        ]
+    },
+    { // 추가 질문 4
+        question: "새로운 물건을 살 때 가장 중요하게 생각하는 것은?",
+        answers: [
+            { text: "디자인과 미적인 부분", score: 3 },
+            { text: "실용성과 기능성", score: 2 },
+            { text: "가격 대비 성능", score: 1 },
+            { text: "오래 사용할 수 있는 내구성", score: 4 }
+        ]
     }
 ];
 
+// 테스트에 실제로 사용될 질문 배열 (선택되고 셔플될 예정)
+let questions = []; 
+
+// 한 번의 테스트에 사용할 질문의 개수
+const QUESTIONS_PER_TEST = 4;
+
+// 모든 가능한 행운의 숫자 (1부터 9까지)
+const allPossibleLuckyNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+// 모든 가능한 행운의 색깔 (빨강, 주황, 노랑, 초록, 파랑, 보라)
+const allPossibleLuckyColors = ["빨강", "주황", "노랑", "초록", "파랑", "보라"];
+
+// 행운의 숫자에 따른 악세서리 매핑 함수
+function getLuckyNumberAccessory(number) {
+    switch (number) {
+        case 1: return "시계"; // 새로운 시작, 정확성
+        case 2: return "스카프"; // 연결, 조화
+        case 3: return "모자"; // 창의성, 표현
+        case 4: return "가방"; // 안정성, 실용성
+        case 5: return "안경"; // 지혜, 통찰력
+        case 6: return "리본"; // 조화, 아름다움
+        case 7: return "왕관"; // 행운, 신비로움
+        case 8: return "메달"; // 성취, 균형
+        case 9: return "책"; // 지식, 완성
+        default: return "특별한 악세서리";
+    }
+}
+
+
+// 결과 데이터입니다. (설명만 포함, 캐릭터 정보는 이제 사용되지 않음)
 const results = [
-    { minScore: 4, maxScore: 7, color: "파란색", number: 7, description: "파란색은 평화와 안정을 상징하며, 숫자 7은 행운의 상징입니다. 오늘은 차분하고 행운 가득한 하루가 될 거예요! 이 파란색 에너지를 활용하여 오늘은 명상 시간을 가져보거나, 차분한 음악을 들어보세요." },
-    { minScore: 8, maxScore: 11, color: "초록색", number: 3, description: "초록색은 성장과 활력을 나타내고, 숫자 3은 창의성을 의미합니다. 새로운 아이디어가 샘솟는 하루가 될 것입니다. 자연 속에서 산책을 하거나, 새로운 취미를 시작해 보는 것을 추천합니다." },
-    { minScore: 12, maxScore: 15, color: "주황색", number: 9, description: "주황색은 열정과 즐거움을 상징하고, 숫자 9는 완성의 숫자입니다. 오늘 당신의 노력이 결실을 맺을 거예요! 좋아하는 사람들과 맛있는 음식을 나누거나, 즐거운 파티를 계획해 보세요." },
-    { minScore: 16, maxScore: 16, color: "보라색", number: 1, description: "보라색은 영감과 신비로움을 나타내며, 숫자 1은 새로운 시작을 의미합니다. 오늘은 당신이 주인공이 되는 특별한 날이 될 것입니다. 당신의 직관을 믿고 새로운 도전을 시도해 보세요. 혼자만의 시간을 가지며 자신을 돌아보는 것도 좋습니다." }
+    {
+        minScore: 4, maxScore: 7, // 낮은 점수대 - 평화/안정 관련 성향
+        description: `당신은 평화롭고 안정적인 에너지를 가진 사람입니다. 내면의 고요함을 추구하며, 주변에 편안함을 선사하는 매력이 있습니다. 때로는 신비로운 통찰력을 발휘하여 예상치 못한 기회를 발견하기도 합니다. 오늘은 차분하고 행운 가득한 하루가 될 거예요. 이 에너지를 활용하여 명상 시간을 가져보거나, 차분한 음악을 들어보세요. 당신의 고요함 속에서 진정한 행운이 피어날 것입니다.`
+    },
+    {
+        minScore: 8, maxScore: 11, // 중간 점수대 - 성장/활력/창의성 관련 성향
+        description: `당신은 활기차고 창의적인 에너지를 가진 사람입니다. 끊임없이 성장하고 배우며, 새로운 아이디어를 현실로 만드는 데 탁월한 능력을 보여줍니다. 사람들과의 소통 속에서 기쁨을 찾고 낙천적인 태도로 주변에 긍정적인 영향을 미칩니다. 오늘은 새로운 아이디어가 샘솟는 활기찬 하루가 될 것입니다. 자연 속에서 산책을 하거나, 새로운 취미를 시작해 보는 것을 추천합니다. 당신의 창의력이 오늘의 행운을 이끌어낼 것입니다.`
+    },
+    {
+        minScore: 12, maxScore: 15, // 높은 중간 점수대 - 열정/즐거움/지혜 관련 성향
+        description: `당신은 밝고 따뜻한 열정으로 가득 찬 사람입니다. 삶의 즐거움을 만끽하며, 주변 사람들에게 긍정적인 에너지를 전파합니다. 노력의 결실을 맺는 데 탁월한 능력이 있으며, 지혜로운 통찰력으로 주변을 돕는 것에 기쁨을 느낍니다. 오늘은 당신의 노력이 결실을 맺고 즐거운 경험이 가득할 거예요! 좋아하는 사람들과 맛있는 음식을 나누거나, 즐거운 파티를 계획해 보세요. 당신의 열정이 오늘의 행운을 더욱 뜨겁게 달굴 것입니다.`
+    },
+    {
+        minScore: 16, maxScore: 16, // 최고 점수대 - 영감/신비/리더십 관련 성향
+        description: `당신은 고귀하고 신비로운 영감을 가진 사람입니다. 뛰어난 직관력과 독립적인 정신으로 자신만의 길을 개척하며, 새로운 시작을 두려워하지 않습니다. 예술적 감각이나 깊은 통찰력을 통해 세상을 다른 시각으로 바라봅니다. 오늘은 당신이 주인공이 되는 특별한 날이 될 것입니다. 당신의 직관을 믿고 새로운 도전을 시도해 보세요. 당신의 독창적인 아이디어가 빛을 발할 것입니다.`
+    }
 ];
 
 let currentQuestionIndex = 0;
 let totalScore = 0;
+
+
+// 배열을 무작위로 섞는 Fisher-Yates 셔플 알고리즘 함수
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]]; // 요소 교환
+    }
+    return array;
+}
+
 
 function applyRandomColors() {
     const randomPalette = colorPalettes[Math.floor(Math.random() * colorPalettes.length)];
@@ -133,7 +223,6 @@ function applyRandomColors() {
     document.documentElement.style.setProperty('--share-btn-hover-bg', randomPalette.shareBtnHover);
     document.documentElement.style.setProperty('--h1-color', randomPalette.h1Color);
 
-    // 요소들이 모두 존재할 때만 색상 적용 시도
     if (restartButton) {
         restartButton.style.backgroundColor = randomPalette.restartBtn;
         restartButton.onmouseover = () => restartButton.style.backgroundColor = randomPalette.restartBtnHover;
@@ -172,6 +261,10 @@ function startQuiz() {
     currentQuestionIndex = 0;
     totalScore = 0;
 
+    // 모든 질문에서 QUESTIONS_PER_TEST 개수만큼 무작위로 선택하고 섞음
+    const shuffledAllQuestions = shuffleArray([...allQuestions]); // 원본 배열을 섞기 위해 복사
+    questions = shuffledAllQuestions.slice(0, QUESTIONS_PER_TEST); // 앞에서부터 필요한 개수만큼 자르기
+
     // 모든 섹션을 먼저 숨기고, 초기 화면에 필요한 것만 보이게 합니다.
     hideAllSections();
 
@@ -179,10 +272,10 @@ function startQuiz() {
     if (introSection) introSection.style.display = 'block';
     if (faqSection) faqSection.style.display = 'block';
     if (startButtonContainer) startButtonContainer.style.display = 'block';
-    if (footerSection) footerSection.style.display = 'block'; // 푸터는 항상 보이게
+    if (footerSection) footerSection.style.display = 'block';
 
     // 답변 버튼 영역은 비워둠 (초기화)
-    resetState();
+    resetState(); // 이전 답변 버튼이 남아있을 경우를 대비
 
     applyRandomColors(); // 새로운 색상 팔레트 적용
 }
@@ -192,7 +285,7 @@ function startQuiz() {
 if (startQuizButton) {
     startQuizButton.addEventListener('click', () => {
         // 모든 섹션을 숨기고 질문 컨테이너만 보이게 합니다.
-        hideAllSections(); // ★★★ 숨기기 로직 다시 호출 ★★★
+        hideAllSections();
 
         questionContainer.style.display = 'block'; // 질문 컨테이너 표시
         showQuestion(); // 첫 질문 시작
@@ -202,10 +295,13 @@ if (startQuizButton) {
 
 function showQuestion() {
     resetState(); // 이전 질문의 버튼들을 초기화합니다.
-    const question = questions[currentQuestionIndex];
+    const question = questions[currentQuestionIndex]; // 선택되고 셔플된 questions 배열 사용
     questionText.innerText = question.question;
 
-    question.answers.forEach(answer => {
+    // 답변 순서도 무작위로 섞을 수 있도록 처리
+    const shuffledAnswers = shuffleArray([...question.answers]); // 답변도 섞기 위해 복사
+
+    shuffledAnswers.forEach(answer => { // 섞인 답변 순서로 버튼 생성
         const button = document.createElement('button');
         button.innerText = answer.text;
         button.classList.add('btn');
@@ -219,6 +315,40 @@ function resetState() {
     while (answerButtons.firstChild) {
         answerButtons.removeChild(answerButtons.firstChild);
     }
+}
+
+function showResult() {
+    hideAllSections(); // 모든 섹션을 숨김 (혹시 모를 잔여 요소 방지)
+    resultContainer.style.display = 'block'; // 결과 컨테이너만 보이게 함
+    if (footerSection) footerSection.style.display = 'block';
+
+    let selectedLuckyColor = "알 수 없음"; // 이제 랜덤으로 선택될 색상
+    let selectedLuckyNumber = "알 수 없음"; // 이제 랜덤으로 선택될 숫자
+    let personalityDescription = "오늘 당신의 행운을 찾아냈습니다!"; // 성격/유형 설명
+
+    for (const result of results) {
+        if (totalScore >= result.minScore && totalScore <= result.maxScore) {
+            personalityDescription = result.description;
+            break;
+        }
+    }
+
+    // 행운의 색깔과 숫자를 무작위로 선택
+    selectedLuckyColor = allPossibleLuckyColors[Math.floor(Math.random() * allPossibleLuckyColors.length)];
+    selectedLuckyNumber = allPossibleLuckyNumbers[Math.floor(Math.random() * allPossibleLuckyNumbers.length)];
+
+    // 행운의 숫자에 따른 악세서리 텍스트 추가
+    const luckyAccessory = getLuckyNumberAccessory(selectedLuckyNumber);
+    const finalDescription = `${personalityDescription}\n\n당신의 행운의 숫자에 맞는 악세서리는 바로 **${luckyAccessory}**입니다! 이 악세서리가 오늘 당신의 행운을 더욱 빛내줄 거예요.`;
+
+
+    luckyColorText.innerText = `오늘의 행운의 색깔: ${selectedLuckyColor}`;
+    luckyNumberText.innerText = `오늘의 행운의 숫자: ${selectedLuckyNumber}`;
+    luckyDescriptionText.innerText = finalDescription; // 최종 설명 표시
+
+    // ★★★ 캐릭터 이미지와 설명 관련 로직 제거됨 ★★★
+    // characterImage.style.display = 'none';
+    // characterDescription.style.display = 'none';
 }
 
 function selectAnswer(e) {
@@ -235,33 +365,14 @@ function selectAnswer(e) {
     }
 }
 
-function showResult() {
-    hideAllSections(); // 모든 섹션을 숨김 (혹시 모를 잔여 요소 방지)
-    resultContainer.style.display = 'block'; // 결과 컨테이너만 보이게 함
-    if (footerSection) footerSection.style.display = 'block'; // 푸터는 결과 화면에서도 보이게 함
-
-    let luckyColor = "알 수 없음";
-    let luckyNumber = "알 수 없음";
-    let luckyDescription = "오늘 당신의 행운을 찾아냈습니다!";
-
-    for (const result of results) {
-        if (totalScore >= result.minScore && totalScore <= result.maxScore) {
-            luckyColor = result.color;
-            luckyNumber = result.number;
-            luckyDescription = result.description;
-            break;
-        }
-    }
-
-    luckyColorText.innerText = `오늘의 행운의 색깔: ${luckyColor}`;
-    luckyNumberText.innerText = `오늘의 행운의 숫자: ${luckyNumber}`;
-    luckyDescriptionText.innerText = luckyDescription;
-}
 
 function shareResult() {
-    const luckyColor = luckyColorText.innerText;
-    const luckyNumber = luckyNumberText.innerText;
-    const shareText = `✨ 오늘의 행운 테스트 결과 ✨\n\n${luckyColor}\n${luckyNumber}\n\n${luckyDescriptionText.innerText}\n\n나의 행운을 확인해보세요! ${window.location.href}`;
+    const luckyColor = luckyColorText.innerText; // 예: "오늘의 행운의 색깔: 빨강"
+    const luckyNumber = luckyNumberText.innerText; // 예: "오늘의 행운의 숫자: 5"
+    const overallDescription = luckyDescriptionText.innerText; // 성격/유형 설명 + 악세서리 설명
+
+    // 공유 텍스트는 이제 랜덤 색깔/숫자와 성격/유형 설명을 포함하도록 구성
+    const shareText = `✨ 오늘의 행운 테스트 결과 ✨\n\n${luckyColor}\n${luckyNumber}\n\n${overallDescription}\n\n나의 행운을 확인해보세요! ${window.location.href}`;
     const shareUrl = window.location.href;
 
     if (navigator.share) {
@@ -293,9 +404,6 @@ function copyLink() {
         });
 }
 
-// 이벤트 리스너들은 해당 요소가 HTML에 존재할 때만 추가됩니다.
-// 이전에 함수 내에서 동적으로 생성하던 방식에서 HTML에 미리 존재하는 요소를 사용하도록 변경되었으므로,
-// 요소가 확실히 존재할 때만 addEventListener를 호출합니다.
 if (restartButton) restartButton.addEventListener('click', startQuiz);
 if (shareWebButton) shareWebButton.addEventListener('click', shareResult);
 if (copyLinkButton) copyLinkButton.addEventListener('click', copyLink);
