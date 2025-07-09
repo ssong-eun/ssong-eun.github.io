@@ -219,11 +219,15 @@ h1 {
     background-color: var(--share-btn-hover-bg); /* JavaScript에서 설정된 색상 사용 */
 }
 
-/* 애드센스 광고 컨테이너 스타일 (선택 사항) */
+/* ★★★ 애드센스 광고 컨테이너 스타일 (display: block 명시적 추가) ★★★ */
 .ad-container {
     margin: 20px auto; /* 위아래 여백, 가운데 정렬 */
     max-width: 336px; /* 일반적인 직사각형 광고 최대 너비 예시 */
     text-align: center;
+    display: block; /* ★★★ 이 부분을 명시적으로 추가했습니다 ★★★ */
+    min-height: 100px; /* 광고가 로드될 공간을 최소한으로 확보 (선택 사항) */
+    background-color: #f0f0f0; /* 광고 로딩 전 배경색 (선택 사항) */
+    border-radius: 5px; /* (선택 사항) */
 }
 
 /* 푸터 섹션 스타일 */
@@ -338,6 +342,7 @@ h1 {
     .ad-container {
         margin: 15px auto;
         max-width: 95%;
+        min-height: 90px; /* 모바일에서 최소 높이 */
     }
 
     .footer-section {
