@@ -77,6 +77,101 @@ h1 {
     text-align: center;
 }
 
+/* '오늘의 긍정 한마디' 섹션 스타일 */
+.daily-affirmation-section {
+    margin-top: 40px;
+    margin-bottom: 40px;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    text-align: center; /* 전체 텍스트 가운데 정렬 */
+}
+
+.daily-affirmation-section h2 {
+    color: var(--h1-color);
+    font-size: 1.8em;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.affirmation-text {
+    font-size: 1.1em;
+    line-height: 1.6;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+/* '테스트 작동 방식' 섹션 스타일 */
+.how-it-works-section {
+    margin-top: 40px;
+    margin-bottom: 40px;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    text-align: left;
+}
+
+.how-it-works-section h2 {
+    color: var(--h1-color);
+    font-size: 1.8em;
+    margin-top: 0;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.step-item {
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px dashed #eee;
+}
+
+.step-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.step-item h3 {
+    font-size: 1.1em;
+    color: #555;
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
+.step-item p {
+    font-size: 0.95em;
+    line-height: 1.5;
+    color: #777;
+}
+
+/* '테스트 제작자의 한마디' 섹션 스타일 */
+.creator-note-section {
+    margin-top: 40px;
+    margin-bottom: 40px;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    text-align: left;
+}
+
+.creator-note-section h2 {
+    color: var(--h1-color);
+    font-size: 1.8em;
+    margin-top: 0;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.creator-note-section p {
+    font-size: 1.0em;
+    line-height: 1.6;
+    color: #666;
+    margin-bottom: 10px;
+}
+
 /* FAQ 섹션 스타일 */
 .faq-section {
     margin-top: 40px; /* 시작 버튼 컨테이너와의 간격 */
@@ -219,12 +314,12 @@ h1 {
     background-color: var(--share-btn-hover-bg); /* JavaScript에서 설정된 색상 사용 */
 }
 
-/* ★★★ 애드센스 광고 컨테이너 스타일 (display: block 명시적 추가) ★★★ */
+/* 애드센스 광고 컨테이너 스타일 (display: block 명시적 추가) */
 .ad-container {
     margin: 20px auto; /* 위아래 여백, 가운데 정렬 */
     max-width: 336px; /* 일반적인 직사각형 광고 최대 너비 예시 */
     text-align: center;
-    display: block; /* ★★★ 이 부분을 명시적으로 추가했습니다 ★★★ */
+    display: block; /* 이 부분을 명시적으로 추가했습니다 */
     min-height: 100px; /* 광고가 로드될 공간을 최소한으로 확보 (선택 사항) */
     background-color: #f0f0f0; /* 광고 로딩 전 배경색 (선택 사항) */
     border-radius: 5px; /* (선택 사항) */
@@ -249,19 +344,63 @@ h1 {
     color: #555;
 }
 
+/* '색깔과 숫자의 상징' 섹션 스타일 */
+.symbolism-section {
+    margin-top: 40px;
+    margin-bottom: 40px;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    text-align: left;
+}
 
-/* ★★★ 반응형 디자인을 위한 미디어 쿼리 ★★★ */
+.symbolism-section h2 {
+    color: var(--h1-color);
+    font-size: 1.8em;
+    margin-top: 0;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.symbolism-item {
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px dashed #eee;
+}
+
+.symbolism-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.symbolism-item h3 {
+    font-size: 1.1em;
+    color: #555;
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
+.symbolism-item p {
+    font-size: 0.95em;
+    line-height: 1.5;
+    color: #777;
+}
+
+
+/* 반응형 디자인을 위한 미디어 쿼리 */
 
 /* 작은 화면 (모바일)에 대한 스타일 */
 @media (max-width: 600px) {
     .container {
-        padding: 20px; /* 작은 화면에서 컨테이너 패딩 줄임 */
-        width: 95%; /* 작은 화면에서 너비를 더 늘림 */
-        margin: 10px auto; /* 가장자리에 약간의 여백 추가 및 가운데 정렬 */
+        padding: 20px;
+        width: 95%;
+        margin: 10px auto;
     }
 
     h1 {
-        font-size: 1.8em; /* 작은 화면에서 제목 크기 줄임 */
+        font-size: 1.8em;
     }
 
     .intro-section {
@@ -280,7 +419,56 @@ h1 {
 
     .start-button-container {
         margin-top: 20px;
-        margin-bottom: 20px; /* 모바일에서 간격 확보 */
+        margin-bottom: 20px;
+    }
+
+    .daily-affirmation-section {
+        margin-top: 30px;
+        margin-bottom: 30px;
+        padding: 15px;
+    }
+
+    .daily-affirmation-section h2 {
+        font-size: 1.5em;
+        margin-bottom: 15px;
+    }
+
+    .affirmation-text {
+        font-size: 1em;
+    }
+
+    .how-it-works-section {
+        margin-top: 30px;
+        margin-bottom: 30px;
+        padding: 15px;
+    }
+
+    .how-it-works-section h2 {
+        font-size: 1.5em;
+        margin-bottom: 15px;
+    }
+
+    .step-item h3 {
+        font-size: 1em;
+    }
+
+    .step-item p {
+        font-size: 0.9em;
+    }
+
+    .creator-note-section {
+        margin-top: 30px;
+        margin-bottom: 30px;
+        padding: 15px;
+    }
+
+    .creator-note-section h2 {
+        font-size: 1.5em;
+        margin-bottom: 15px;
+    }
+
+    .creator-note-section p {
+        font-size: 0.95em;
     }
 
     .faq-section {
@@ -307,20 +495,20 @@ h1 {
     }
 
     #question-text {
-        font-size: 1.1em; /* 작은 화면에서 질문 텍스트 크기 줄임 */
+        font-size: 1.1em;
     }
 
     .btn {
-        padding: 12px 15px; /* 작은 화면에서 버튼 패딩 줄임 */
-        font-size: 1em; /* 작은 화면에서 버튼 폰트 크기 줄임 */
+        padding: 12px 15px;
+        font-size: 1em;
     }
 
     .result-container h2 {
-        font-size: 1.8em; /* 작은 화면에서 결과 제목 크기 줄임 */
+        font-size: 1.8em;
     }
 
     .result-container p {
-        font-size: 1em; /* 작은 화면에서 결과 텍스트 크기 줄임 */
+        font-size: 1em;
     }
 
     #lucky-description-text {
@@ -330,24 +518,43 @@ h1 {
     }
 
     .share-buttons {
-        flex-direction: column; /* 작은 화면에서 공유 버튼들을 세로로 쌓음 */
-        gap: 8px; /* 버튼 사이 간격 줄임 */
+        flex-direction: column;
+        gap: 8px;
     }
 
     .share-btn {
-        flex-basis: 100%; /* 작은 화면에서 공유 버튼들이 전체 너비를 차지하도록 */
-        max-width: unset; /* 최대 너비 제한 해제 */
+        flex-basis: 100%;
+        max-width: unset;
     }
 
     .ad-container {
         margin: 15px auto;
         max-width: 95%;
-        min-height: 90px; /* 모바일에서 최소 높이 */
+        min-height: 90px;
     }
 
     .footer-section {
         margin-top: 30px;
         font-size: 0.8em;
+    }
+
+    .symbolism-section {
+        margin-top: 30px;
+        margin-bottom: 30px;
+        padding: 15px;
+    }
+
+    .symbolism-section h2 {
+        font-size: 1.5em;
+        margin-bottom: 15px;
+    }
+
+    .symbolism-item h3 {
+        font-size: 1em;
+    }
+
+    .symbolism-item p {
+        font-size: 0.9em;
     }
 }
 
