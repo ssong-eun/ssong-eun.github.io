@@ -14,7 +14,13 @@ const copyLinkButton = document.getElementById('copy-link-button');
 
 // 추가된 콘텐츠 섹션들 (JavaScript로 제어)
 const introSection = document.querySelector('.intro-section');
+const adContainer = document.querySelector('.ad-container'); // 애드센스 광고 컨테이너
+const dailyAffirmationSection = document.querySelector('.daily-affirmation-section'); // '오늘의 긍정 한마디' 섹션
+const affirmationTextElement = document.getElementById('affirmation-text'); // '오늘의 긍정 한마디' 텍스트 요소
+const howItWorksSection = document.querySelector('.how-it-works-section');
+const creatorNoteSection = document.querySelector('.creator-note-section');
 const faqSection = document.querySelector('.faq-section');
+const symbolismSection = document.querySelector('.symbolism-section');
 const footerSection = document.querySelector('.footer-section');
 const startButtonContainer = document.getElementById('start-button-container');
 const startQuizButton = document.getElementById('start-quiz-button');
@@ -162,6 +168,28 @@ const allPossibleLuckyNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 // 모든 가능한 행운의 색깔 (빨강, 주황, 노랑, 초록, 파랑, 보라)
 const allPossibleLuckyColors = ["빨강", "주황", "노랑", "초록", "파랑", "보라"];
 
+// ★★★ 365가지 긍정 한마디 (예시) ★★★
+// 여기에 365개까지 확장하여 채워 넣으세요!
+const allAffirmations = [
+    "행운은 준비된 자에게 찾아온다. 오늘 당신의 마음을 긍정으로 채우세요!",
+    "당신이 오늘 만나는 모든 것은 행운의 조각입니다. 작은 것에서부터 감사함을 찾아보세요.",
+    "매일매일 당신에게 새로운 기회가 찾아올 것입니다. 그 기회를 잡을 준비를 하세요!",
+    "긍정적인 생각은 긍정적인 결과를 만듭니다. 오늘도 밝게 빛나세요!",
+    "당신은 충분히 강하고 능력 있는 사람입니다. 무엇이든 해낼 수 있어요!",
+    "오늘은 당신의 삶을 변화시킬 수 있는 최고의 날입니다. 시작하세요!",
+    "행복은 선택입니다. 오늘 당신은 행복을 선택할 수 있습니다.",
+    "모든 경험은 당신을 성장시킵니다. 감사함으로 하루를 채우세요.",
+    "당신은 사랑받고 있으며, 그 자체로 완벽합니다.",
+    "오늘 당신이 뿌리는 긍정의 씨앗은 풍성한 결실을 맺을 것입니다.",
+    "도전은 성장의 기회입니다. 두려워 말고 나아가세요!",
+    "당신의 미소는 세상을 밝히는 빛입니다. 오늘도 활짝 웃으세요!",
+    "당신 안에는 무한한 잠재력이 있습니다. 그것을 믿으세요!",
+    "실수는 배움의 과정입니다. 괜찮아요, 다시 시도해 보세요.",
+    "오늘 하루도 당신의 꿈을 향해 한 걸음 더 나아가세요!",
+    // 여기에 추가적으로 365가지 명언을 채워 넣으시면 됩니다.
+    // 각 명언은 쉼표(,)로 구분됩니다.
+];
+
 // 행운의 숫자에 따른 악세서리 매핑 함수
 function getLuckyNumberAccessory(number) {
     switch (number) {
@@ -249,7 +277,12 @@ function applyRandomColors() {
 // 모든 섹션의 display 속성을 초기화하는 헬퍼 함수
 function hideAllSections() {
     if (introSection) introSection.style.display = 'none';
+    if (adContainer) adContainer.style.display = 'none';
+    if (dailyAffirmationSection) dailyAffirmationSection.style.display = 'none'; // '오늘의 긍정 한마디' 섹션
+    if (howItWorksSection) howItWorksSection.style.display = 'none';
+    if (creatorNoteSection) creatorNoteSection.style.display = 'none';
     if (faqSection) faqSection.style.display = 'none';
+    if (symbolismSection) symbolismSection.style.display = 'none';
     if (startButtonContainer) startButtonContainer.style.display = 'none';
     questionContainer.style.display = 'none';
     resultContainer.style.display = 'none';
@@ -269,10 +302,22 @@ function startQuiz() {
     hideAllSections();
 
     // 초기 화면에 필요한 섹션만 보이게 합니다.
+    if (adContainer) adContainer.style.display = 'block';
     if (introSection) introSection.style.display = 'block';
+    if (dailyAffirmationSection) dailyAffirmationSection.style.display = 'block'; // 긍정 한마디 섹션 보이게 함
+    if (howItWorksSection) howItWorksSection.style.display = 'block';
+    if (creatorNoteSection) creatorNoteSection.style.display = 'block';
     if (faqSection) faqSection.style.display = 'block';
+    if (symbolismSection) symbolismSection.style.display = 'block';
     if (startButtonContainer) startButtonContainer.style.display = 'block';
     if (footerSection) footerSection.style.display = 'block';
+
+    // ★★★ '오늘의 긍정 한마디' 랜덤으로 선택하여 표시 ★★★
+    if (affirmationTextElement && allAffirmations.length > 0) {
+        const randomIndex = Math.floor(Math.random() * allAffirmations.length);
+        affirmationTextElement.innerText = allAffirmations[randomIndex];
+    }
+
 
     // 답변 버튼 영역은 비워둠 (초기화)
     resetState(); // 이전 답변 버튼이 남아있을 경우를 대비
@@ -288,6 +333,9 @@ if (startQuizButton) {
         hideAllSections();
 
         questionContainer.style.display = 'block'; // 질문 컨테이너 표시
+        if (adContainer) adContainer.style.display = 'block'; // 광고 컨테이너도 보이게 함 (선택 사항: 질문 중에도 광고를 띄울지 결정)
+        if (footerSection) footerSection.style.display = 'block'; // 푸터도 보이게 함
+
         showQuestion(); // 첫 질문 시작
     });
 }
@@ -309,6 +357,8 @@ function showQuestion() {
         button.addEventListener('click', selectAnswer);
         answerButtons.appendChild(button);
     });
+    // 테스트 중에도 푸터 보이기
+    if (footerSection) footerSection.style.display = 'block';
 }
 
 function resetState() {
@@ -320,6 +370,7 @@ function resetState() {
 function showResult() {
     hideAllSections(); // 모든 섹션을 숨김 (혹시 모를 잔여 요소 방지)
     resultContainer.style.display = 'block'; // 결과 컨테이너만 보이게 함
+    if (adContainer) adContainer.style.display = 'block'; // 광고 컨테이너도 보이게 함
     if (footerSection) footerSection.style.display = 'block';
 
     let selectedLuckyColor = "알 수 없음"; // 이제 랜덤으로 선택될 색상
@@ -345,10 +396,6 @@ function showResult() {
     luckyColorText.innerText = `오늘의 행운의 색깔: ${selectedLuckyColor}`;
     luckyNumberText.innerText = `오늘의 행운의 숫자: ${selectedLuckyNumber}`;
     luckyDescriptionText.innerText = finalDescription; // 최종 설명 표시
-
-    // ★★★ 캐릭터 이미지와 설명 관련 로직 제거됨 ★★★
-    // characterImage.style.display = 'none';
-    // characterDescription.style.display = 'none';
 }
 
 function selectAnswer(e) {
