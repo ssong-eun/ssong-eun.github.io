@@ -24,6 +24,7 @@
                  (adsbygoogle = window.adsbygoogle || []).push({});
             </script>
         </div>
+
         <div class="intro-section">
             <p class="intro-text highlight">안녕하세요!</p>
             <p class="intro-text">바쁜 일상 속 작은 즐거움을 위해 <br> <strong style="color: var(--h1-color);">오늘의 행운</strong>을 알아보는 심리 테스트입니다.</p>
@@ -34,6 +35,33 @@
             </div>
 
             <p class="intro-text small-text">이 테스트는 과학적인 분석이 아닌, <br> 오직 재미와 긍정적인 에너지를 위한 것입니다.<br> 친구들과 결과를 공유하며 <br>오늘의 특별한 lucky를 나눠보세요! ✨</p>
+        </div>
+
+        <div class="daily-affirmation-section">
+            <h2>✨ 오늘의 긍정 한마디 ✨</h2>
+            <p id="affirmation-text" class="affirmation-text"></p>
+            </div>
+        <div class="how-it-works-section">
+            <h2>테스트는 어떻게 작동하나요?</h2>
+            <div class="step-item">
+                <h3>1단계: 질문에 답하기</h3>
+                <p>총 4가지의 무작위 질문에 당신의 직관적인 선택을 해보세요. 질문들은 당신의 성향을 알아보는 데 도움이 될 것입니다.</p>
+            </div>
+            <div class="step-item">
+                <h3>2단계: 점수 계산</h3>
+                <p>당신의 답변에 따라 고유한 점수가 계산됩니다. 이 점수는 당신의 오늘의 기운과 심리적 경향을 나타냅니다.</p>
+            </div>
+            <div class="step-item">
+                <h3>3단계: 행운 결과 확인</h3>
+                <p>계산된 점수를 바탕으로 당신의 오늘의 행운의 색깔과 숫자가 무작위로 결정됩니다. 당신의 고유한 결과와 함께, 행운을 더해줄 악세서리 힌트도 받아보세요!</p>
+            </div>
+            <p class="small-text">이 테스트는 즐거움을 위한 도구이며, 과학적 진단이 아님을 다시 한번 알려드립니다.</p>
+        </div>
+
+        <div class="creator-note-section">
+            <h2>테스트 제작자의 한마디</h2>
+            <p>이 앱은 바쁜 일상 속에서 잠시나마 즐거움을 드리고, 긍정적인 에너지를 불어넣고자 하는 마음으로 제작되었습니다. 매일 새로운 질문과 결과로 당신의 하루를 특별하게 시작할 수 있기를 바랍니다.</p>
+            <p>작은 행운과 긍정적인 시선이 모여 당신의 삶을 더욱 풍요롭게 만들 수 있다고 믿습니다. 이 테스트가 당신의 일상에 작은 미소와 함께 새로운 활력을 선사하길 진심으로 응원합니다.</p>
         </div>
 
         <div id="question-container" class="question-container" style="display:none;">
@@ -47,6 +75,7 @@
             <p id="lucky-color-text"></p>
             <p id="lucky-number-text"></p>
             <p id="lucky-description-text"></p>
+
             <div class="share-buttons">
                 <button id="share-web-button" class="btn share-btn">결과 공유하기</button>
                 <button id="copy-link-button" class="btn share-btn">링크 복사하기</button>
@@ -73,12 +102,29 @@
                 <h3>Q: 테스트 결과가 마음에 들지 않으면 어떻게 하죠?</h3>
                 <p>A: 이 테스트의 결과는 오락 목적임을 다시 한번 강조 드립니다. 결과가 마음에 들지 않더라도 너무 실망하지 마세요! '다시 하기' 버튼을 눌러 새로운 질문에 답하고, 또 다른 행운의 색깔과 숫자를 찾아볼 수 있습니다. 중요한 것은 테스트를 즐기는 과정 그 자체입니다.</p>
             </div>
-           
+            <div class="faq-item">
+                <h3>Q: 이 앱에 대한 피드백은 어디로 보내면 되나요?</h3>
+                <p>A: 저희 앱에 관심을 가져주셔서 감사합니다! 현재는 별도의 피드백 채널을 운영하고 있지 않습니다. 하지만 당신의 소중한 의견은 앱 개선에 큰 도움이 되므로, 혹시 버그를 발견하거나 개선 아이디어가 있다면 [@webtorynet] 으로 알려주세요. 모든 피드백은 신중하게 검토됩니다.</p>
+            </div>
+        </div>
+
+        <div class="symbolism-section">
+            <h2>색깔과 숫자의 흥미로운 상징</h2>
+            <div class="symbolism-item">
+                <h3>색깔의 의미</h3>
+                <p><strong>빨강:</strong> 열정, 에너지, 사랑. <strong>주황:</strong> 활력, 즐거움, 창의성. <strong>노랑:</strong> 행복, 낙천주의, 지혜. <strong>초록:</strong> 성장, 자연, 균형. <strong>파랑:</strong> 평화, 신뢰, 안정. <strong>보라:</strong> 신비, 영감, 고귀함.</p>
+                <p>색깔은 우리의 기분과 생각에 알게 모르게 영향을 미칩니다. 당신의 행운의 색깔이 어떤 의미를 가지는지 알아보세요.</p>
+            </div>
+            <div class="symbolism-item">
+                <h3>숫자의 의미</h3>
+                <p><strong>1:</strong> 시작, 독립, 리더십. <strong>2:</strong> 조화, 균형, 협력. <strong>3:</strong> 창의성, 소통, 성장. <strong>4:</strong> 안정, 질서, 노력. <strong>5:</strong> 변화, 자유, 모험. <strong>6:</strong> 책임, 사랑, 봉사. <strong>7:</strong> 영성, 지혜, 행운. <strong>8:</strong> 풍요, 성공, 권력. <strong>9:</strong> 완성, 자비, 통찰력.</p>
+                <p>숫자는 단순한 수를 넘어 우주적 질서와 개인의 운명을 상징하기도 합니다. 당신의 행운의 숫자가 당신에게 어떤 메시지를 전할까요?</p>
+            </div>
         </div>
 
         <div class="footer-section">
             <p>&copy; 2025 오늘의 행운 테스트. All rights reserved.</p>
-        </div>
+            </div>
     </div>
 
     <script src="script.js"></script>
