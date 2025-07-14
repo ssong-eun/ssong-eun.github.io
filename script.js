@@ -168,8 +168,7 @@ const allPossibleLuckyNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 // 모든 가능한 행운의 색깔 (빨강, 주황, 노랑, 초록, 파랑, 보라)
 const allPossibleLuckyColors = ["빨강", "주황", "노랑", "초록", "파랑", "보라"];
 
-// ★★★ 365가지 긍정 한마디 (예시) ★★★
-// 여기에 365개까지 확장하여 채워 넣으세요!
+// 365가지 긍정 한마디 (예시) - 여기에 더 많은 명언을 채워 넣으세요!
 const allAffirmations = [
     "행운은 준비된 자에게 찾아온다. 오늘 당신의 마음을 긍정으로 채우세요!",
     "당신이 오늘 만나는 모든 것은 행운의 조각입니다. 작은 것에서부터 감사함을 찾아보세요.",
@@ -186,6 +185,11 @@ const allAffirmations = [
     "당신 안에는 무한한 잠재력이 있습니다. 그것을 믿으세요!",
     "실수는 배움의 과정입니다. 괜찮아요, 다시 시도해 보세요.",
     "오늘 하루도 당신의 꿈을 향해 한 걸음 더 나아가세요!",
+    "어떤 어려움도 당신을 더 강하게 만들 것입니다. 믿음을 가지세요.",
+    "당신은 오늘 특별한 기쁨을 발견할 것입니다. 마음을 열어두세요.",
+    "매 순간이 새로운 시작입니다. 어제는 지나갔고, 오늘은 당신의 것입니다.",
+    "당신의 생각은 현실이 됩니다. 긍정적인 생각으로 가득 채우세요.",
+    "용기는 두려움이 없는 것이 아니라, 두려움에도 불구하고 나아가는 것입니다.",
     // 여기에 추가적으로 365가지 명언을 채워 넣으시면 됩니다.
     // 각 명언은 쉼표(,)로 구분됩니다.
 ];
@@ -278,7 +282,7 @@ function applyRandomColors() {
 function hideAllSections() {
     if (introSection) introSection.style.display = 'none';
     if (adContainer) adContainer.style.display = 'none';
-    if (dailyAffirmationSection) dailyAffirmationSection.style.display = 'none'; // '오늘의 긍정 한마디' 섹션
+    if (dailyAffirmationSection) dailyAffirmationSection.style.display = 'none';
     if (howItWorksSection) howItWorksSection.style.display = 'none';
     if (creatorNoteSection) creatorNoteSection.style.display = 'none';
     if (faqSection) faqSection.style.display = 'none';
@@ -295,8 +299,8 @@ function startQuiz() {
     totalScore = 0;
 
     // 모든 질문에서 QUESTIONS_PER_TEST 개수만큼 무작위로 선택하고 섞음
-    const shuffledAllQuestions = shuffleArray([...allQuestions]); // 원본 배열을 섞기 위해 복사
-    questions = shuffledAllQuestions.slice(0, QUESTIONS_PER_TEST); // 앞에서부터 필요한 개수만큼 자르기
+    const shuffledAllQuestions = shuffleArray([...allQuestions]);
+    questions = shuffledAllQuestions.slice(0, QUESTIONS_PER_TEST);
 
     // 모든 섹션을 먼저 숨기고, 초기 화면에 필요한 것만 보이게 합니다.
     hideAllSections();
@@ -304,7 +308,7 @@ function startQuiz() {
     // 초기 화면에 필요한 섹션만 보이게 합니다.
     if (adContainer) adContainer.style.display = 'block';
     if (introSection) introSection.style.display = 'block';
-    if (dailyAffirmationSection) dailyAffirmationSection.style.display = 'block'; // 긍정 한마디 섹션 보이게 함
+    if (dailyAffirmationSection) dailyAffirmationSection.style.display = 'block';
     if (howItWorksSection) howItWorksSection.style.display = 'block';
     if (creatorNoteSection) creatorNoteSection.style.display = 'block';
     if (faqSection) faqSection.style.display = 'block';
@@ -312,29 +316,27 @@ function startQuiz() {
     if (startButtonContainer) startButtonContainer.style.display = 'block';
     if (footerSection) footerSection.style.display = 'block';
 
-    // ★★★ '오늘의 긍정 한마디' 랜덤으로 선택하여 표시 ★★★
+    // '오늘의 긍정 한마디' 랜덤으로 선택하여 표시
     if (affirmationTextElement && allAffirmations.length > 0) {
         const randomIndex = Math.floor(Math.random() * allAffirmations.length);
         affirmationTextElement.innerText = allAffirmations[randomIndex];
     }
 
-
     // 답변 버튼 영역은 비워둠 (초기화)
-    resetState(); // 이전 답변 버튼이 남아있을 경우를 대비
+    resetState();
 
     applyRandomColors(); // 새로운 색상 팔레트 적용
 }
 
 // "테스트 시작하기" 버튼에 클릭 이벤트 리스너 추가
-// 앱 로드 시점에 이 리스너는 한 번만 등록됩니다.
 if (startQuizButton) {
     startQuizButton.addEventListener('click', () => {
         // 모든 섹션을 숨기고 질문 컨테이너만 보이게 합니다.
         hideAllSections();
 
-        questionContainer.style.display = 'block'; // 질문 컨테이너 표시
-        if (adContainer) adContainer.style.display = 'block'; // 광고 컨테이너도 보이게 함 (선택 사항: 질문 중에도 광고를 띄울지 결정)
-        if (footerSection) footerSection.style.display = 'block'; // 푸터도 보이게 함
+        questionContainer.style.display = 'block';
+        if (adContainer) adContainer.style.display = 'block'; // 질문 중에도 광고를 띄울지 결정
+        if (footerSection) footerSection.style.display = 'block';
 
         showQuestion(); // 첫 질문 시작
     });
@@ -343,13 +345,12 @@ if (startQuizButton) {
 
 function showQuestion() {
     resetState(); // 이전 질문의 버튼들을 초기화합니다.
-    const question = questions[currentQuestionIndex]; // 선택되고 셔플된 questions 배열 사용
+    const question = questions[currentQuestionIndex];
     questionText.innerText = question.question;
 
-    // 답변 순서도 무작위로 섞을 수 있도록 처리
-    const shuffledAnswers = shuffleArray([...question.answers]); // 답변도 섞기 위해 복사
+    const shuffledAnswers = shuffleArray([...question.answers]);
 
-    shuffledAnswers.forEach(answer => { // 섞인 답변 순서로 버튼 생성
+    shuffledAnswers.forEach(answer => {
         const button = document.createElement('button');
         button.innerText = answer.text;
         button.classList.add('btn');
@@ -368,14 +369,14 @@ function resetState() {
 }
 
 function showResult() {
-    hideAllSections(); // 모든 섹션을 숨김 (혹시 모를 잔여 요소 방지)
-    resultContainer.style.display = 'block'; // 결과 컨테이너만 보이게 함
-    if (adContainer) adContainer.style.display = 'block'; // 광고 컨테이너도 보이게 함
+    hideAllSections(); // 모든 섹션을 숨김
+    resultContainer.style.display = 'block';
+    if (adContainer) adContainer.style.display = 'block';
     if (footerSection) footerSection.style.display = 'block';
 
-    let selectedLuckyColor = "알 수 없음"; // 이제 랜덤으로 선택될 색상
-    let selectedLuckyNumber = "알 수 없음"; // 이제 랜덤으로 선택될 숫자
-    let personalityDescription = "오늘 당신의 행운을 찾아냈습니다!"; // 성격/유형 설명
+    let selectedLuckyColor = "알 수 없음";
+    let selectedLuckyNumber = "알 수 없음";
+    let personalityDescription = "오늘 당신의 행운을 찾아냈습니다!";
 
     for (const result of results) {
         if (totalScore >= result.minScore && totalScore <= result.maxScore) {
@@ -384,18 +385,16 @@ function showResult() {
         }
     }
 
-    // 행운의 색깔과 숫자를 무작위로 선택
     selectedLuckyColor = allPossibleLuckyColors[Math.floor(Math.random() * allPossibleLuckyColors.length)];
     selectedLuckyNumber = allPossibleLuckyNumbers[Math.floor(Math.random() * allPossibleLuckyNumbers.length)];
 
-    // 행운의 숫자에 따른 악세서리 텍스트 추가
     const luckyAccessory = getLuckyNumberAccessory(selectedLuckyNumber);
     const finalDescription = `${personalityDescription}\n\n당신의 행운의 숫자에 맞는 악세서리는 바로 **${luckyAccessory}**입니다! 이 악세서리가 오늘 당신의 행운을 더욱 빛내줄 거예요.`;
 
 
     luckyColorText.innerText = `오늘의 행운의 색깔: ${selectedLuckyColor}`;
     luckyNumberText.innerText = `오늘의 행운의 숫자: ${selectedLuckyNumber}`;
-    luckyDescriptionText.innerText = finalDescription; // 최종 설명 표시
+    luckyDescriptionText.innerText = finalDescription;
 }
 
 function selectAnswer(e) {
@@ -414,11 +413,10 @@ function selectAnswer(e) {
 
 
 function shareResult() {
-    const luckyColor = luckyColorText.innerText; // 예: "오늘의 행운의 색깔: 빨강"
-    const luckyNumber = luckyNumberText.innerText; // 예: "오늘의 행운의 숫자: 5"
-    const overallDescription = luckyDescriptionText.innerText; // 성격/유형 설명 + 악세서리 설명
+    const luckyColor = luckyColorText.innerText;
+    const luckyNumber = luckyNumberText.innerText;
+    const overallDescription = luckyDescriptionText.innerText;
 
-    // 공유 텍스트는 이제 랜덤 색깔/숫자와 성격/유형 설명을 포함하도록 구성
     const shareText = `✨ 오늘의 행운 테스트 결과 ✨\n\n${luckyColor}\n${luckyNumber}\n\n${overallDescription}\n\n나의 행운을 확인해보세요! ${window.location.href}`;
     const shareUrl = window.location.href;
 
