@@ -21,6 +21,7 @@ const howItWorksSection = document.querySelector('.how-it-works-section');
 const creatorNoteSection = document.querySelector('.creator-note-section');
 const faqSection = document.querySelector('.faq-section');
 const symbolismSection = document.querySelector('.symbolism-section');
+const testimonialsSection = document.querySelector('.testimonials-section'); // 새로 추가된 섹션
 const footerSection = document.querySelector('.footer-section');
 const startButtonContainer = document.getElementById('start-button-container');
 const startQuizButton = document.getElementById('start-quiz-button');
@@ -168,7 +169,7 @@ const allPossibleLuckyNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 // 모든 가능한 행운의 색깔 (빨강, 주황, 노랑, 초록, 파랑, 보라)
 const allPossibleLuckyColors = ["빨강", "주황", "노랑", "초록", "파랑", "보라"];
 
-// 365가지 긍정 한마디 (예시) - 여기에 더 많은 명언을 채워 넣으세요!
+// 50가지 긍정 한마디
 const allAffirmations = [
     "행운은 준비된 자에게 찾아온다. 오늘 당신의 마음을 긍정으로 채우세요!",
     "당신이 오늘 만나는 모든 것은 행운의 조각입니다. 작은 것에서부터 감사함을 찾아보세요.",
@@ -190,9 +191,38 @@ const allAffirmations = [
     "매 순간이 새로운 시작입니다. 어제는 지나갔고, 오늘은 당신의 것입니다.",
     "당신의 생각은 현실이 됩니다. 긍정적인 생각으로 가득 채우세요.",
     "용기는 두려움이 없는 것이 아니라, 두려움에도 불구하고 나아가는 것입니다.",
-    // 여기에 추가적으로 365가지 명언을 채워 넣으시면 됩니다.
-    // 각 명언은 쉼표(,)로 구분됩니다.
+    "모든 문제는 해결책을 가지고 있습니다. 포기하지 마세요.",
+    "당신은 매일 더 나은 사람이 되고 있습니다. 스스로를 칭찬해주세요.",
+    "행운은 당신의 편입니다. 기회를 놓치지 마세요.",
+    "당신의 열정은 불가능을 가능하게 만듭니다. 불꽃을 태우세요.",
+    "오늘은 당신의 잠재력을 최대한 발휘할 날입니다.",
+    "감사하는 마음으로 하루를 시작하면 모든 것이 달라질 것입니다.",
+    "당신은 소중하고 특별한 존재입니다.",
+    "어둠이 있어야 별이 빛나는 법입니다. 시련 속에서 빛을 찾으세요.",
+    "당신의 꿈을 향해 나아가는 모든 발걸음이 중요합니다.",
+    "오늘 당신의 삶에 새로운 변화가 찾아올 것입니다.",
+    "사랑하는 마음으로 세상을 대하면 사랑이 돌아올 것입니다.",
+    "당신의 노력은 결코 헛되지 않습니다. 곧 좋은 소식이 있을 거예요.",
+    "오늘은 당신의 용기로 세상에 긍정적인 영향을 미치세요.",
+    "웃음은 최고의 약입니다. 많이 웃고 행복하세요.",
+    "당신은 혼자가 아닙니다. 항상 응원하는 사람들이 있습니다.",
+    "오늘 하루도 감사함으로 가득 채우세요. 작은 것에서부터 행복을 찾으세요.",
+    "당신이 믿는다면 무엇이든 가능합니다.",
+    "어제의 실패는 오늘의 성공을 위한 발판입니다.",
+    "모든 순간은 기적입니다. 현재를 즐기세요.",
+    "당신의 선택이 당신의 미래를 만듭니다.",
+    "오늘은 새로운 인연을 만날 수도 있는 특별한 날입니다.",
+    "당신은 스스로의 행복을 책임질 수 있습니다.",
+    "긍정적인 에너지는 전염됩니다. 당신의 빛을 나누세요.",
+    "꿈을 꾸는 것을 멈추지 마세요. 꿈은 현실이 됩니다.",
+    "당신은 당신이 생각하는 것보다 훨씬 더 위대합니다.",
+    "오늘 하루도 당신의 목표를 향해 나아가세요.",
+    "마음속의 평화는 가장 큰 보물입니다. 그것을 지키세요.",
+    "당신이 가는 길이 곧 길입니다. 자신감을 가지세요.",
+    "오늘은 행복한 일이 일어날 거야. 그렇게 믿어봐!",
+    "당신의 하루는 당신이 만드는 것입니다. 멋진 하루를 만드세요!"
 ];
+
 
 // 행운의 숫자에 따른 악세서리 매핑 함수
 function getLuckyNumberAccessory(number) {
@@ -211,23 +241,23 @@ function getLuckyNumberAccessory(number) {
 }
 
 
-// 결과 데이터입니다. (설명만 포함, 캐릭터 정보는 이제 사용되지 않음)
+// 결과 데이터입니다. (설명만 포함)
 const results = [
     {
         minScore: 4, maxScore: 7, // 낮은 점수대 - 평화/안정 관련 성향
-        description: `당신은 평화롭고 안정적인 에너지를 가진 사람입니다. 내면의 고요함을 추구하며, 주변에 편안함을 선사하는 매력이 있습니다. 때로는 신비로운 통찰력을 발휘하여 예상치 못한 기회를 발견하기도 합니다. 오늘은 차분하고 행운 가득한 하루가 될 거예요. 이 에너지를 활용하여 명상 시간을 가져보거나, 차분한 음악을 들어보세요. 당신의 고요함 속에서 진정한 행운이 피어날 것입니다.`
+        description: `당신은 평화롭고 안정적인 에너지를 가진 사람입니다. 내면의 고요함을 추구하며, 주변에 편안함을 선사하는 매력이 있습니다. 때로는 신비로운 통찰력을 발휘하여 예상치 못한 기회를 발견하기도 합니다. 이는 마치 고요한 연못에 비친 달빛처럼, 당신의 깊은 내면에서 빛나는 지혜를 의미합니다. 오늘은 차분하고 행운 가득한 하루가 될 거예요. 이 에너지를 활용하여 명상 시간을 가져보거나, 차분한 음악을 들어보세요. 당신의 고요함 속에서 진정한 행운이 피어날 것입니다. 작은 일에도 감사함을 느끼고, 주변의 아름다움을 찾아보세요. 이것이 당신의 행운을 더욱 견고하게 만들 것입니다. 차분하고 안정적인 당신의 모습은 주변 사람들에게도 편안함과 신뢰를 줍니다. 당신의 내면의 평화를 유지하는 것이 중요하며, 스트레스 상황에서도 흔들리지 않는 중심을 찾는 연습을 해보세요. 이는 당신의 행운을 지속적으로 유지하는 데 큰 도움이 될 것입니다. 오늘의 행운을 통해 당신의 삶에 긍정적인 변화가 시작되기를 바랍니다.`,
     },
     {
         minScore: 8, maxScore: 11, // 중간 점수대 - 성장/활력/창의성 관련 성향
-        description: `당신은 활기차고 창의적인 에너지를 가진 사람입니다. 끊임없이 성장하고 배우며, 새로운 아이디어를 현실로 만드는 데 탁월한 능력을 보여줍니다. 사람들과의 소통 속에서 기쁨을 찾고 낙천적인 태도로 주변에 긍정적인 영향을 미칩니다. 오늘은 새로운 아이디어가 샘솟는 활기찬 하루가 될 것입니다. 자연 속에서 산책을 하거나, 새로운 취미를 시작해 보는 것을 추천합니다. 당신의 창의력이 오늘의 행운을 이끌어낼 것입니다.`
+        description: `당신은 활기차고 창의적인 에너지를 가진 사람입니다. 끊임없이 성장하고 배우며, 새로운 아이디어를 현실로 만드는 데 탁월한 능력을 보여줍니다. 마치 솟아나는 샘물처럼, 당신의 에너지는 주변을 생기 있게 만듭니다. 사람들과의 소통 속에서 기쁨을 찾고 낙천적인 태도로 주변에 긍정적인 영향을 미칩니다. 당신의 밝은 에너지는 주변 사람들에게도 활력을 불어넣어 줍니다. 오늘은 새로운 아이디어가 샘솟는 활기찬 하루가 될 것입니다. 자연 속에서 산책을 하거나, 집 안에 초록 식물을 두어 에너지를 충전해 보세요. 새로운 취미를 시작하거나 친구들과 대화하며 창의력을 발휘하는 것을 추천합니다. 당신의 창의력이 오늘의 행운을 이끌어낼 것입니다. 이 에너지를 활용하여 당신의 잠재력을 최대한 발휘하고, 삶의 새로운 지평을 열어보세요. 당신의 긍정적인 태도는 어떤 도전도 극복할 수 있게 할 것입니다.`,
     },
     {
         minScore: 12, maxScore: 15, // 높은 중간 점수대 - 열정/즐거움/지혜 관련 성향
-        description: `당신은 밝고 따뜻한 열정으로 가득 찬 사람입니다. 삶의 즐거움을 만끽하며, 주변 사람들에게 긍정적인 에너지를 전파합니다. 노력의 결실을 맺는 데 탁월한 능력이 있으며, 지혜로운 통찰력으로 주변을 돕는 것에 기쁨을 느낍니다. 오늘은 당신의 노력이 결실을 맺고 즐거운 경험이 가득할 거예요! 좋아하는 사람들과 맛있는 음식을 나누거나, 즐거운 파티를 계획해 보세요. 당신의 열정이 오늘의 행운을 더욱 뜨겁게 달굴 것입니다.`
+        description: `당신은 밝고 따뜻한 열정으로 가득 찬 사람입니다. 삶의 즐거움을 만끽하며, 주변 사람들에게 긍정적인 에너지를 전파합니다. 마치 타오르는 태양처럼, 당신의 에너지는 주변을 밝게 비춥니다. 노력의 결실을 맺는 데 탁월한 능력이 있으며, 지혜로운 통찰력으로 주변을 돕는 것에 기쁨을 느낍니다. 당신의 리더십과 포용력은 많은 사람들에게 영감을 줍니다. 오늘은 당신의 노력이 결실을 맺고 즐거운 경험이 가득할 거예요! 좋아하는 사람들과 맛있는 음식을 나누거나, 즐거운 파티를 계획해 보세요. 혹은 당신의 지혜를 발휘하여 주변 사람들을 돕는 일에 참여하는 것도 좋습니다. 당신의 열정이 오늘의 행운을 더욱 뜨겁게 달굴 것입니다. 당신의 에너지를 세상에 긍정적으로 사용하고, 당신의 빛으로 주변을 더욱 따뜻하게 만들어 보세요.`,
     },
     {
         minScore: 16, maxScore: 16, // 최고 점수대 - 영감/신비/리더십 관련 성향
-        description: `당신은 고귀하고 신비로운 영감을 가진 사람입니다. 뛰어난 직관력과 독립적인 정신으로 자신만의 길을 개척하며, 새로운 시작을 두려워하지 않습니다. 예술적 감각이나 깊은 통찰력을 통해 세상을 다른 시각으로 바라봅니다. 오늘은 당신이 주인공이 되는 특별한 날이 될 것입니다. 당신의 직관을 믿고 새로운 도전을 시도해 보세요. 당신의 독창적인 아이디어가 빛을 발할 것입니다.`
+        description: `당신은 고귀하고 신비로운 영감을 가진 사람입니다. 뛰어난 직관력과 독립적인 정신으로 자신만의 길을 개척하며, 새로운 시작을 두려워하지 않습니다. 마치 밤하늘의 별처럼, 당신은 독특하고 영적인 빛을 발합니다. 예술적 감각이나 깊은 통찰력을 통해 세상을 다른 시각으로 바라봅니다. 오늘은 당신이 주인공이 되는 특별한 날이 될 것입니다. 당신의 직관을 믿고 새로운 도전을 시도해 보세요. 혼자만의 시간을 가지며 자신을 돌아보거나, 명상을 통해 내면의 목소리에 귀 기울이는 것도 좋습니다. 당신의 독창적인 아이디어가 빛을 발할 것입니다. 당신은 리더로서의 자질을 가지고 있으며, 당신의 영감은 많은 사람들에게 새로운 방향을 제시할 수 있습니다. 자신을 믿고 나아가세요. 당신의 길은 언제나 밝을 것입니다.`,
     }
 ];
 
@@ -261,7 +291,7 @@ function applyRandomColors() {
         restartButton.onmouseout = () => restartButton.style.backgroundColor = randomPalette.restartBtn;
     }
 
-    if (document.querySelector('h1')) {
+    if (document.querySelector('h1')) { // h1 제목
         document.querySelector('h1').style.color = randomPalette.h1Color;
     }
     if (document.querySelector('.result-container h2')) {
@@ -270,6 +300,19 @@ function applyRandomColors() {
     if (faqSection && faqSection.querySelector('h2')) {
         faqSection.querySelector('h2').style.color = randomPalette.h1Color;
     }
+    if (dailyAffirmationSection && dailyAffirmationSection.querySelector('h2')) { // 긍정 한마디 제목
+        dailyAffirmationSection.querySelector('h2').style.color = randomPalette.h1Color;
+    }
+    if (howItWorksSection && howItWorksSection.querySelector('h2')) { // 작동 방식 제목
+        howItWorksSection.querySelector('h2').style.color = randomPalette.h1Color;
+    }
+    if (creatorNoteSection && creatorNoteSection.querySelector('h2')) { // 제작자 한마디 제목
+        creatorNoteSection.querySelector('h2').style.color = randomPalette.h1Color;
+    }
+    if (symbolismSection && symbolismSection.querySelector('h2')) { // 상징 제목
+        symbolismSection.querySelector('h2').style.color = randomPalette.h1Color;
+    }
+
 
     if (startQuizButton) {
         startQuizButton.style.backgroundColor = randomPalette.mainBtn;
@@ -288,6 +331,7 @@ function hideAllSections() {
     if (faqSection) faqSection.style.display = 'none';
     if (symbolismSection) symbolismSection.style.display = 'none';
     if (startButtonContainer) startButtonContainer.style.display = 'none';
+    if (testimonialsSection) testimonialsSection.style.display = 'none'; // 새로 추가된 섹션
     questionContainer.style.display = 'none';
     resultContainer.style.display = 'none';
     if (footerSection) footerSection.style.display = 'none';
@@ -313,6 +357,7 @@ function startQuiz() {
     if (creatorNoteSection) creatorNoteSection.style.display = 'block';
     if (faqSection) faqSection.style.display = 'block';
     if (symbolismSection) symbolismSection.style.display = 'block';
+    if (testimonialsSection) testimonialsSection.style.display = 'block'; // 새로 추가된 섹션
     if (startButtonContainer) startButtonContainer.style.display = 'block';
     if (footerSection) footerSection.style.display = 'block';
 
@@ -426,10 +471,10 @@ function shareResult() {
             text: shareText,
             url: shareUrl,
         }).then(() => {
-                console.log('결과 공유 성공!');
+                alert('결과 공유 성공!');
             })
             .catch((error) => {
-                console.error('결과 공유 실패:', error);
+                alert('공유 실패: ' + error.message);
             });
     } else {
         alert('이 브라우저는 공유 기능을 지원하지 않습니다. 링크 복사 버튼을 이용해주세요!');
@@ -444,8 +489,8 @@ function copyLink() {
             alert('링크가 클립보드에 복사되었습니다!');
         })
         .catch(err => {
-            console.error('링크 복사 실패:', err);
             alert('링크 복사에 실패했습니다. 직접 복사해주세요: ' + currentUrl);
+            console.error('Failed to copy link:', err);
         });
 }
 
