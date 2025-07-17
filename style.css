@@ -388,7 +388,7 @@ h1 {
     color: #777;
 }
 
-/* ★★★ '사용자 후기' 섹션 스타일 추가 ★★★ */
+/* '사용자 후기' 섹션 스타일 */
 .testimonials-section {
     margin-top: 40px;
     margin-bottom: 40px;
@@ -431,7 +431,51 @@ h1 {
     color: #777;
     font-size: 0.95em;
 }
-/* ★★★ '사용자 후기' 섹션 스타일 추가 끝 ★★★ */
+
+
+/* '일상 속 행운 활용 팁' 섹션 스타일 */
+.luck-tips-section {
+    margin-top: 40px;
+    margin-bottom: 40px;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    text-align: left;
+}
+
+.luck-tips-section h2 {
+    color: var(--h1-color);
+    font-size: 1.8em;
+    margin-top: 0;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.luck-tips-section .tip-item {
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px dashed #eee;
+}
+
+.luck-tips-section .tip-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.luck-tips-section .tip-item h3 {
+    font-size: 1.1em;
+    color: #555;
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
+.luck-tips-section .tip-item p {
+    font-size: 0.95em;
+    line-height: 1.5;
+    color: #777;
+}
 
 
 /* 반응형 디자인을 위한 미디어 쿼리 */
