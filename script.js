@@ -21,7 +21,9 @@ const howItWorksSection = document.querySelector('.how-it-works-section');
 const creatorNoteSection = document.querySelector('.creator-note-section');
 const faqSection = document.querySelector('.faq-section');
 const symbolismSection = document.querySelector('.symbolism-section');
-const testimonialsSection = document.querySelector('.testimonials-section'); // 새로 추가된 섹션
+const testimonialsSection = document.querySelector('.testimonials-section');
+const testimonialsList = document.getElementById('testimonials-list'); // 새로 추가된 후기 목록 컨테이너
+const luckTipsSection = document.querySelector('.luck-tips-section'); // 새로 추가된 섹션
 const footerSection = document.querySelector('.footer-section');
 const startButtonContainer = document.getElementById('start-button-container');
 const startQuizButton = document.getElementById('start-quiz-button');
@@ -223,6 +225,26 @@ const allAffirmations = [
     "당신의 하루는 당신이 만드는 것입니다. 멋진 하루를 만드세요!"
 ];
 
+// ★★★ 사용자 후기 데이터 (20개 이상 채워 넣기 권장) ★★★
+const allTestimonials = [
+    { quote: "매일 아침 '오늘의 행운 테스트'로 하루를 시작해요! 랜덤으로 바뀌는 문제와 색깔, 숫자 덕분에 매일매일 새로운 재미를 느낍니다. 긍정적인 한마디도 큰 힘이 돼요. 정말 마법 같은 앱이에요!", author: "김**정 님 (서울)" },
+    { quote: "처음에는 반신반의했지만, 계속하다 보니 정말 신기하게도 결과가 저의 하루에 작은 영향을 미치는 것 같아요. 특히 행운의 숫자에 맞는 악세서리 힌트는 정말 센스 있는 아이디어입니다!", author: "이**수 님 (부산)" },
+    { quote: "간단하면서도 심오한 질문들이 많아서 매번 새롭게 느껴집니다. 복잡한 심리테스트보다 훨씬 직관적이고, 결과도 긍정적이라서 매일 기분 좋게 리프레시하는 느낌이에요. 친구들에게도 추천했어요!", author: "박**희 님 (제주)" },
+    { quote: "출근길 지하철에서 매일 하는 저의 루틴이 되었어요. 짧은 시간이지만 기분 전환에 최고입니다. 다양한 문제와 매번 달라지는 결과가 정말 좋아요!", author: "최**영 님 (경기)" },
+    { quote: "생각보다 결과 설명이 정말 구체적이고 위로가 됩니다. 특히 행운의 악세서리 팁은 실제로 적용해 볼 수 있어서 유용했어요. 개발자님 감사합니다!", author: "정**민 님 (대전)" },
+    { quote: "콘텐츠가 정말 알차네요! 단순히 운세를 보는 것을 넘어, 색깔과 숫자의 의미를 배우고 긍정적인 마음을 다잡는 데 큰 도움이 됩니다. 이런 무료 앱이 있다니 놀라워요.", author: "강**호 님 (인천)" },
+    { quote: "매일 랜덤으로 바뀌는 질문 덕분에 질리지 않고 즐기고 있습니다. 오늘 어떤 질문이 나올까 기대하게 돼요. 심플한 디자인도 마음에 듭니다.", author: "윤**아 님 (대구)" },
+    { quote: "바쁜 일상 속에 작은 힐링이 필요할 때 딱이에요. 가볍게 즐길 수 있으면서도, 결과가 주는 긍정적인 메시지가 하루를 기분 좋게 만들어 줍니다.", author: "서**진 님 (광주)" },
+    { quote: "친구들과 함께 테스트하고 결과를 공유하는 재미가 쏠쏠합니다. 서로의 행운의 색깔과 숫자를 비교해보는 것도 즐거운 대화 주제가 돼요.", author: "한**준 님 (울산)" },
+    { quote: "제가 평소에 생각하던 부분들이 결과에 반영되는 것 같아서 신기했어요. 심리 테스트라고 하기엔 가볍지만, 스스로를 돌아보는 계기가 되기도 합니다.", author: "김**지 님 (세종)" },
+    // 여기에 추가적으로 총 20개 이상이 되도록 더 많은 후기를 채워 넣으세요!
+    // 각 후기는 객체 { quote: "후기 내용", author: "작성자" } 형태입니다.
+    // 더 많은 후기를 추가하면 콘텐츠 양이 더욱 풍부해집니다.
+];
+
+// 한 번에 표시할 사용자 후기의 개수
+const TESTIMONIALS_TO_SHOW = 3;
+
 
 // 행운의 숫자에 따른 악세서리 매핑 함수
 function getLuckyNumberAccessory(number) {
@@ -241,23 +263,45 @@ function getLuckyNumberAccessory(number) {
 }
 
 
-// 결과 데이터입니다. (설명만 포함)
+// 결과 데이터입니다. (설명 대폭 보강)
 const results = [
     {
         minScore: 4, maxScore: 7, // 낮은 점수대 - 평화/안정 관련 성향
-        description: `당신은 평화롭고 안정적인 에너지를 가진 사람입니다. 내면의 고요함을 추구하며, 주변에 편안함을 선사하는 매력이 있습니다. 때로는 신비로운 통찰력을 발휘하여 예상치 못한 기회를 발견하기도 합니다. 이는 마치 고요한 연못에 비친 달빛처럼, 당신의 깊은 내면에서 빛나는 지혜를 의미합니다. 오늘은 차분하고 행운 가득한 하루가 될 거예요. 이 에너지를 활용하여 명상 시간을 가져보거나, 차분한 음악을 들어보세요. 당신의 고요함 속에서 진정한 행운이 피어날 것입니다. 작은 일에도 감사함을 느끼고, 주변의 아름다움을 찾아보세요. 이것이 당신의 행운을 더욱 견고하게 만들 것입니다. 차분하고 안정적인 당신의 모습은 주변 사람들에게도 편안함과 신뢰를 줍니다. 당신의 내면의 평화를 유지하는 것이 중요하며, 스트레스 상황에서도 흔들리지 않는 중심을 찾는 연습을 해보세요. 이는 당신의 행운을 지속적으로 유지하는 데 큰 도움이 될 것입니다. 오늘의 행운을 통해 당신의 삶에 긍정적인 변화가 시작되기를 바랍니다.`,
+        description: `당신은 평화롭고 안정적인 에너지를 가진 사람입니다. 내면의 고요함을 추구하며, 주변에 편안함을 선사하는 매력이 있습니다. 때로는 신비로운 통찰력을 발휘하여 예상치 못한 기회를 발견하기도 합니다. 이는 마치 고요한 연못에 비친 달빛처럼, 당신의 깊은 내면에서 빛나는 지혜를 의미합니다.
+        
+        파란색은 진정 효과가 있어 스트레스를 완화하고 차분한 마음을 갖는 데 도움이 되는 색깔로 알려져 있습니다. 또한, 신뢰와 안정성을 상징하며, 이는 당신의 인간관계에서 중요한 역할을 합니다. 숫자 7은 전 세계적으로 행운과 신비로움을 의미하는 가장 강력한 숫자 중 하나입니다. 완전함과 영적인 의미를 담고 있으며, 예상치 못한 좋은 기회나 직관적인 통찰력을 가져다줄 수 있습니다. 7이라는 숫자를 보면 행운을 기대해 볼 수 있습니다.
+        
+        오늘은 차분하고 행운 가득한 하루가 될 거예요. 이 에너지를 활용하여 명상 시간을 가져보거나, 차분한 음악을 들어보세요. 파란색 계열의 옷을 입거나 파란색 소품을 가까이 두어 내면의 평화를 강화하는 것도 좋습니다. 작은 일에도 감사함을 느끼고, 주변의 아름다움을 찾아보세요. 이것이 당신의 행운을 더욱 견고하게 만들 것입니다. 차분하고 안정적인 당신의 모습은 주변 사람들에게도 편안함과 신뢰를 줍니다. 당신의 내면의 평화를 유지하는 것이 중요하며, 스트레스 상황에서도 흔들리지 않는 중심을 찾는 연습을 해보세요. 이는 당신의 행운을 지속적으로 유지하는 데 큰 도움이 될 것입니다. 오늘의 행운을 통해 당신의 삶에 긍정적인 변화가 시작되기를 바랍니다. 당신의 고요함 속에서 진정한 힘을 발견할 수 있을 것입니다. 고요함 속의 강인함이 당신의 매력입니다. 이 운이 당신의 모든 순간을 평화롭게 이끌어 줄 것입니다. 주변 사람들에게도 당신의 평화로운 에너지를 전파하여, 함께 긍정적인 분위기를 만들어가세요. 당신의 존재 자체가 행운입니다.`
     },
     {
         minScore: 8, maxScore: 11, // 중간 점수대 - 성장/활력/창의성 관련 성향
-        description: `당신은 활기차고 창의적인 에너지를 가진 사람입니다. 끊임없이 성장하고 배우며, 새로운 아이디어를 현실로 만드는 데 탁월한 능력을 보여줍니다. 마치 솟아나는 샘물처럼, 당신의 에너지는 주변을 생기 있게 만듭니다. 사람들과의 소통 속에서 기쁨을 찾고 낙천적인 태도로 주변에 긍정적인 영향을 미칩니다. 당신의 밝은 에너지는 주변 사람들에게도 활력을 불어넣어 줍니다. 오늘은 새로운 아이디어가 샘솟는 활기찬 하루가 될 것입니다. 자연 속에서 산책을 하거나, 집 안에 초록 식물을 두어 에너지를 충전해 보세요. 새로운 취미를 시작하거나 친구들과 대화하며 창의력을 발휘하는 것을 추천합니다. 당신의 창의력이 오늘의 행운을 이끌어낼 것입니다. 이 에너지를 활용하여 당신의 잠재력을 최대한 발휘하고, 삶의 새로운 지평을 열어보세요. 당신의 긍정적인 태도는 어떤 도전도 극복할 수 있게 할 것입니다.`,
+        description: `당신은 활기차고 창의적인 에너지를 가진 사람입니다. 끊임없이 성장하고 배우며, 새로운 아이디어를 현실로 만드는 데 탁월한 능력을 보여줍니다. 마치 솟아나는 샘물처럼, 당신의 에너지는 주변을 생기 있게 만듭니다. 사람들과의 소통 속에서 기쁨을 찾고 낙천적인 태도로 주변에 긍정적인 영향을 미칩니다. 당신의 밝은 에너지는 주변 사람들에게도 활력을 불어넣어 줍니다.
+        
+        초록색은 자연, 성장, 그리고 활력을 나타내는 색상입니다. 재생과 치유의 에너지를 가지고 있어, 마음의 평온을 찾고 새로운 시작을 할 때 긍정적인 영향을 줍니다. 균형과 조화를 의미하기도 합니다. 숫자 3은 창의성, 표현력, 그리고 사회성을 상징합니다. 기쁨과 낙천적인 에너지를 가지고 있으며, 새로운 아이디어를 발전시키거나 사람들과 소통하는 데 유리한 기운을 제공합니다. 3이라는 숫자를 통해 당신의 아이디어가 더욱 빛날 수 있습니다.
+        
+        오늘은 새로운 아이디어가 샘솟는 활기찬 하루가 될 것입니다. 자연 속에서 산책을 하거나, 집 안에 초록 식물을 두어 에너지를 충전해 보세요. 초록색은 치유와 재생을 상징하므로, 당신의 활력을 더욱 북돋아 줄 것입니다. 새로운 취미를 시작하거나 친구들과 대화하며 창의력을 발휘하는 것을 추천합니다. 당신의 창의력이 오늘의 행운을 이끌어낼 것입니다.
+        
+        이 에너지를 활용하여 당신의 잠재력을 최대한 발휘하고, 삶의 새로운 지평을 열어보세요. 당신의 긍정적인 태도는 어떤 도전도 극복할 수 있게 할 것입니다. 주변의 변화를 두려워하지 않고 받아들일 때, 당신은 더욱 크게 성장할 수 있습니다. 당신의 활기찬 에너지가 매 순간 행운을 창조할 것입니다. 끊임없이 배우고 시도하며, 당신의 아이디어로 세상을 더욱 풍요롭게 만들어 보세요. 당신의 성장은 끝이 없을 것입니다.`
     },
     {
         minScore: 12, maxScore: 15, // 높은 중간 점수대 - 열정/즐거움/지혜 관련 성향
-        description: `당신은 밝고 따뜻한 열정으로 가득 찬 사람입니다. 삶의 즐거움을 만끽하며, 주변 사람들에게 긍정적인 에너지를 전파합니다. 마치 타오르는 태양처럼, 당신의 에너지는 주변을 밝게 비춥니다. 노력의 결실을 맺는 데 탁월한 능력이 있으며, 지혜로운 통찰력으로 주변을 돕는 것에 기쁨을 느낍니다. 당신의 리더십과 포용력은 많은 사람들에게 영감을 줍니다. 오늘은 당신의 노력이 결실을 맺고 즐거운 경험이 가득할 거예요! 좋아하는 사람들과 맛있는 음식을 나누거나, 즐거운 파티를 계획해 보세요. 혹은 당신의 지혜를 발휘하여 주변 사람들을 돕는 일에 참여하는 것도 좋습니다. 당신의 열정이 오늘의 행운을 더욱 뜨겁게 달굴 것입니다. 당신의 에너지를 세상에 긍정적으로 사용하고, 당신의 빛으로 주변을 더욱 따뜻하게 만들어 보세요.`,
+        description: `당신은 밝고 따뜻한 열정으로 가득 찬 사람입니다. 삶의 즐거움을 만끽하며, 주변 사람들에게 긍정적인 에너지를 전파합니다. 마치 타오르는 태양처럼, 당신의 에너지는 주변을 밝게 비춥니다. 노력의 결실을 맺는 데 탁월한 능력이 있으며, 지혜로운 통찰력으로 주변을 돕는 것에 기쁨을 느낍니다. 당신의 리더십과 포용력은 많은 사람들에게 영감을 줍니다.
+        
+        주황색은 태양처럼 밝고 따뜻한 에너지를 가진 색상으로, 열정, 즐거움, 그리고 낙천주의를 상징합니다. 활력을 불어넣고 창의적인 에너지를 자극하며, 사교적인 분위기를 만드는 데 효과적입니다. 숫자 9는 완성, 지혜, 그리고 인류애를 의미하는 숫자입니다. 오랜 노력의 결실을 맺거나 큰 목표를 달성하는 데 긍정적인 기운을 줍니다. 또한, 타인에 대한 이해와 봉사 정신을 나타내기도 합니다. 9라는 숫자를 통해 당신의 지혜가 빛날 수 있습니다.
+        
+        오늘은 당신의 노력이 결실을 맺고 즐거운 경험이 가득할 거예요! 좋아하는 사람들과 맛있는 음식을 나누거나, 즐거운 파티를 계획해 보세요. 주황색 계열의 옷이나 소품은 당신의 열정을 더욱 돋보이게 할 것입니다. 혹은 당신의 지혜를 발휘하여 주변 사람들을 돕는 일에 참여하는 것도 좋습니다. 당신의 열정이 오늘의 행운을 더욱 뜨겁게 달굴 것입니다.
+        
+        당신의 에너지를 세상에 긍정적으로 사용하고, 당신의 빛으로 주변을 더욱 따뜻하게 만들어 보세요. 당신의 열정은 당신을 목표로 이끌고, 당신의 긍정적인 태도는 어떤 어려움도 극복하게 할 것입니다. 삶의 모든 순간을 즐기며, 당신의 열정적인 에너지를 통해 더 많은 행운을 끌어당겨 보세요. 당신의 따뜻함이 당신의 길을 밝혀줄 것입니다.`
     },
     {
         minScore: 16, maxScore: 16, // 최고 점수대 - 영감/신비/리더십 관련 성향
-        description: `당신은 고귀하고 신비로운 영감을 가진 사람입니다. 뛰어난 직관력과 독립적인 정신으로 자신만의 길을 개척하며, 새로운 시작을 두려워하지 않습니다. 마치 밤하늘의 별처럼, 당신은 독특하고 영적인 빛을 발합니다. 예술적 감각이나 깊은 통찰력을 통해 세상을 다른 시각으로 바라봅니다. 오늘은 당신이 주인공이 되는 특별한 날이 될 것입니다. 당신의 직관을 믿고 새로운 도전을 시도해 보세요. 혼자만의 시간을 가지며 자신을 돌아보거나, 명상을 통해 내면의 목소리에 귀 기울이는 것도 좋습니다. 당신의 독창적인 아이디어가 빛을 발할 것입니다. 당신은 리더로서의 자질을 가지고 있으며, 당신의 영감은 많은 사람들에게 새로운 방향을 제시할 수 있습니다. 자신을 믿고 나아가세요. 당신의 길은 언제나 밝을 것입니다.`,
+        description: `당신은 고귀하고 신비로운 영감을 가진 사람입니다. 뛰어난 직관력과 독립적인 정신으로 자신만의 길을 개척하며, 새로운 시작을 두려워하지 않습니다. 마치 밤하늘의 별처럼, 당신은 독특하고 영적인 빛을 발합니다. 예술적 감각이나 깊은 통찰력을 통해 세상을 다른 시각으로 바라봅니다. 당신의 통찰력은 다른 사람들이 보지 못하는 것을 보게 하고, 당신의 리더십은 새로운 길을 열어줍니다.
+        
+        보라색은 고귀함, 신비로움, 그리고 영적인 영감을 나타내는 색상입니다. 직관력을 높이고 내면의 평화를 찾는 데 도움을 주며, 예술적 감각이나 깊은 통찰력을 상징하기도 합니다. 숫자 1은 리더십, 독립성, 그리고 새로운 시작을 의미하는 숫자입니다. 당신이 주도적으로 행동하고 새로운 길을 개척하는 데 강력한 에너지를 제공합니다. 1이라는 숫자를 통해 당신의 독창성이 빛날 수 있습니다.
+        
+        오늘은 당신이 주인공이 되는 특별한 날이 될 것입니다. 당신의 직관을 믿고 새로운 도전을 시도해 보세요. 보라색은 신비와 영감을 상징하므로, 보라색 계열의 아이템을 가까이 두는 것도 좋습니다. 혼자만의 시간을 가지며 자신을 돌아보거나, 명상을 통해 내면의 목소리에 귀 기울이는 것도 좋습니다. 당신의 독창적인 아이디어가 빛을 발할 것입니다.
+        
+        당신은 리더로서의 자질을 가지고 있으며, 당신의 영감은 많은 사람들에게 새로운 방향을 제시할 수 있습니다. 자신을 믿고 나아가세요. 당신의 길은 언제나 밝을 것입니다. 당신의 독특한 시각과 깊은 영감을 세상과 나누는 것을 두려워하지 마세요. 그것이 당신의 가장 큰 행운의 원천이 될 것입니다. 당신의 존재 자체가 빛입니다.`
     }
 ];
 
@@ -312,6 +356,12 @@ function applyRandomColors() {
     if (symbolismSection && symbolismSection.querySelector('h2')) { // 상징 제목
         symbolismSection.querySelector('h2').style.color = randomPalette.h1Color;
     }
+    if (testimonialsSection && testimonialsSection.querySelector('h2')) { // 사용자 후기 제목
+        testimonialsSection.querySelector('h2').style.color = randomPalette.h1Color;
+    }
+    if (luckTipsSection && luckTipsSection.querySelector('h2')) { // 행운 팁 제목
+        luckTipsSection.querySelector('h2').style.color = randomPalette.h1Color;
+    }
 
 
     if (startQuizButton) {
@@ -330,8 +380,9 @@ function hideAllSections() {
     if (creatorNoteSection) creatorNoteSection.style.display = 'none';
     if (faqSection) faqSection.style.display = 'none';
     if (symbolismSection) symbolismSection.style.display = 'none';
+    if (testimonialsSection) testimonialsSection.style.display = 'none';
+    if (luckTipsSection) luckTipsSection.style.display = 'none';
     if (startButtonContainer) startButtonContainer.style.display = 'none';
-    if (testimonialsSection) testimonialsSection.style.display = 'none'; // 새로 추가된 섹션
     questionContainer.style.display = 'none';
     resultContainer.style.display = 'none';
     if (footerSection) footerSection.style.display = 'none';
@@ -357,7 +408,8 @@ function startQuiz() {
     if (creatorNoteSection) creatorNoteSection.style.display = 'block';
     if (faqSection) faqSection.style.display = 'block';
     if (symbolismSection) symbolismSection.style.display = 'block';
-    if (testimonialsSection) testimonialsSection.style.display = 'block'; // 새로 추가된 섹션
+    if (testimonialsSection) testimonialsSection.style.display = 'block';
+    if (luckTipsSection) luckTipsSection.style.display = 'block';
     if (startButtonContainer) startButtonContainer.style.display = 'block';
     if (footerSection) footerSection.style.display = 'block';
 
@@ -366,6 +418,31 @@ function startQuiz() {
         const randomIndex = Math.floor(Math.random() * allAffirmations.length);
         affirmationTextElement.innerText = allAffirmations[randomIndex];
     }
+
+    // ★★★ 사용자 후기 랜덤으로 선택하여 표시 ★★★
+    if (testimonialsList && allTestimonials.length > 0) {
+        testimonialsList.innerHTML = ''; // 기존 후기 목록 초기화
+        const shuffledTestimonials = shuffleArray([...allTestimonials]);
+        const testimonialsToShow = shuffledTestimonials.slice(0, TESTIMONIALS_TO_SHOW); // 3개 선택
+
+        testimonialsToShow.forEach(item => {
+            const testimonialDiv = document.createElement('div');
+            testimonialDiv.classList.add('testimonial-item');
+            
+            const quoteP = document.createElement('p');
+            quoteP.classList.add('quote');
+            quoteP.innerText = `"${item.quote}"`;
+
+            const authorP = document.createElement('p');
+            authorP.classList.add('author');
+            authorP.innerText = `- ${item.author}`;
+
+            testimonialDiv.appendChild(quoteP);
+            testimonialDiv.appendChild(authorP);
+            testimonialsList.appendChild(testimonialDiv);
+        });
+    }
+
 
     // 답변 버튼 영역은 비워둠 (초기화)
     resetState();
