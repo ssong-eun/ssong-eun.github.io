@@ -1,14 +1,43 @@
 /* 기본 리셋 및 전체 페이지 스타일 */
 body {
-    font-family: 'Arial', sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
+    font-family: 'Noto Sans KR', sans-serif;
     margin: 0;
-    color: #333;
+    padding: 0;
+    background: linear-gradient(to right, #f0f2f0, #fff); /* 기본 배경색 설정 (원하는 색상으로 변경 가능) */
+    position: relative; /* 추가: fixed 요소의 기준점 설정 */
+}
+
+.intro-section {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 255, 255, 0.9); /* 필요에 따라 배경색 및 투명도 조절 */
+    padding: 20px;
+    border-radius: 10px;
     text-align: center;
-    /* 배경색은 JavaScript에서 동적으로 설정됩니다. */
+    z-index: 10; /* 다른 요소 위에 표시 */
+    width: 80%; /* 필요에 따라 너비 조절 */
+    max-width: 600px;
+}
+
+.ad-container {
+    position: fixed;
+    top: 20px; /* 또는 원하는 위치로 조절 */
+    left: 20px; /* 또는 원하는 위치로 조절 */
+    z-index: 5; /* 다른 요소보다 아래에 표시 (필요에 따라 조절) */
+}
+
+.footer-section {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #f8f9fa; /* 푸터 배경색 (원하는 색상으로 변경 가능) */
+    color: #6c757d;
+    text-align: center;
+    padding: 10px 0;
+    z-index: 10; /* 다른 요소 위에 표시 */
 }
 
 /* 루트 요소에 CSS 변수 기본값 정의 (JavaScript에서 이 값들을 덮어씁니다) */
