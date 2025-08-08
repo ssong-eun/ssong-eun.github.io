@@ -419,7 +419,7 @@ function startQuiz() {
         affirmationTextElement.innerText = allAffirmations[randomIndex];
     }
 
-    // ★★★ 사용자 후기 랜덤으로 선택하여 표시 ★★★
+    // 사용자 후기 랜덤으로 선택하여 표시
     if (testimonialsList && allTestimonials.length > 0) {
         testimonialsList.innerHTML = ''; // 기존 후기 목록 초기화
         const shuffledTestimonials = shuffleArray([...allTestimonials]);
