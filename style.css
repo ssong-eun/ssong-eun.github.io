@@ -4,20 +4,21 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+    min-height: 100vh; /* 뷰포트 전체 높이를 차지하도록 */
     margin: 0;
-    color: #333;
-    text-align: center;
+    color: #333; /* 기본 글자색 */
+    text-align: center; /* 기본 텍스트 가운데 정렬 */
     /* 배경색은 JavaScript에서 동적으로 설정됩니다. */
 }
 
 /* 루트 요소에 CSS 변수 기본값 정의 (JavaScript에서 이 값들을 덮어씁니다) */
+/* 이 변수들은 버튼과 제목 색상에 사용됩니다. */
 :root {
-    --main-btn-bg: #f7a59a;
-    --main-btn-hover-bg: #e9573f;
-    --share-btn-bg: #7ab3a7;
-    --share-btn-hover-bg: #5c8f85;
-    --h1-color: #e9573f;
+    --main-btn-bg: #f7a59a; /* 답변 버튼 기본색 */
+    --main-btn-hover-bg: #e9573f; /* 답변 버튼 호버색 */
+    --share-btn-bg: #7ab3a7; /* 공유 버튼 기본색 */
+    --share-btn-hover-bg: #5c8f85; /* 공유 버튼 호버색 */
+    --h1-color: #e9573f; /* 제목 및 하이라이트 텍스트 기본색 */
 }
 
 /* 메인 컨테이너 스타일 */
@@ -25,41 +26,41 @@ body {
     background-color: #fff;
     padding: 30px;
     border-radius: 15px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-    width: 90%;
-    max-width: 500px;
-    margin: auto; /* ★★★ 이 속성을 추가하여 컨테이너를 가운데 정렬합니다 ★★★ */
-    box-sizing: border-box;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+    width: 90%; /* 화면 너비의 90% 차지 */
+    max-width: 500px; /* ★★★ 최대 너비 제한 ★★★ */
+    margin: auto; /* ★★★ 컨테이너를 중앙에 정렬 ★★★ */
+    box-sizing: border-box; /* 패딩과 보더가 너비에 포함되도록 */
 }
 
 /* 제목 (h1) 스타일 */
 h1 {
     margin-bottom: 25px;
-    font-size: 2.2em;
-    color: var(--h1-color);
+    font-size: 2.2em; /* 기본 제목 크기 */
+    color: var(--h1-color); /* JavaScript에서 설정된 색상 사용 */
 }
 
 /* 앱 소개 섹션 스타일 */
 .intro-section {
-    margin-top: -15px;
-    margin-bottom: 30px;
+    margin-top: -15px; /* 제목과의 간격 조절 */
+    margin-bottom: 30px; /* 아래 FAQ 섹션과의 간격 조절 */
     padding: 15px 20px;
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(255, 255, 255, 0.8); /* 약간 투명한 배경 */
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
     line-height: 1.6;
-    color: #666;
+    color: #666; /* 기본 텍스트 색상 */
     font-size: 1.1em;
-    text-align: center;
+    text-align: center; /* 텍스트 가운데 정렬 */
 }
 
 .intro-text {
-    margin: 5px 0;
+    margin: 5px 0; /* 줄 간격 조절 */
 }
 
 .intro-text.highlight {
     font-weight: bold;
-    color: var(--h1-color);
+    color: var(--h1-color); /* 제목 색상과 동일하게 동적 색상 사용 */
     font-size: 1.2em;
     margin-bottom: 10px;
 }
@@ -67,13 +68,13 @@ h1 {
 .intro-text.small-text {
     font-size: 0.9em;
     color: #888;
-    margin-top: 25px;
+    margin-top: 25px; /* 시작 버튼과의 간격 조절 */
 }
 
 /* 시작 버튼 컨테이너 스타일 */
 .start-button-container {
-    margin-top: 20px;
-    margin-bottom: 0px;
+    margin-top: 20px; /* 위쪽 간격 조절 */
+    margin-bottom: 0px; /* 아래쪽 간격 없음 */
     text-align: center;
 }
 
@@ -85,7 +86,7 @@ h1 {
     background-color: rgba(255, 255, 255, 0.9);
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-    text-align: center;
+    text-align: center; /* 전체 텍스트 가운데 정렬 */
 }
 
 .daily-affirmation-section h2 {
@@ -301,4 +302,409 @@ h1 {
 }
 
 /* 개별 공유 버튼 스타일 */
-.share
+.share-btn {
+    background-color: var(--share-btn-bg);
+    padding: 12px 20px;
+    font-size: 1em;
+    flex-grow: 1;
+    max-width: 200px;
+    box-sizing: border-box;
+}
+
+.share-btn:hover {
+    background-color: var(--share-btn-hover-bg);
+}
+
+/* 애드센스 광고 컨테이너 스타일 (display: block 명시적 추가) */
+.ad-container {
+    margin: 20px auto;
+    max-width: 336px;
+    text-align: center;
+    display: block;
+    min-height: 100px;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+}
+
+/* 푸터 섹션 스타일 */
+.footer-section {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    font-size: 0.85em;
+    color: #777;
+    line-height: 1.5;
+}
+
+.footer-section a.footer-link {
+    color: #777;
+    text-decoration: underline;
+}
+
+.footer-section a.footer-link:hover {
+    color: #555;
+}
+
+/* '색깔과 숫자의 상징' 섹션 스타일 */
+.symbolism-section {
+    margin-top: 40px;
+    margin-bottom: 40px;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    text-align: left;
+}
+
+.symbolism-section h2 {
+    color: var(--h1-color);
+    font-size: 1.8em;
+    margin-top: 0;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.symbolism-item {
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px dashed #eee;
+}
+
+.symbolism-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.symbolism-item h3 {
+    font-size: 1.1em;
+    color: #555;
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
+.symbolism-item p {
+    font-size: 0.95em;
+    line-height: 1.5;
+    color: #777;
+}
+
+/* '사용자 후기' 섹션 스타일 */
+.testimonials-section {
+    margin-top: 40px;
+    margin-bottom: 40px;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    text-align: center;
+}
+
+.testimonials-section h2 {
+    color: var(--h1-color);
+    font-size: 1.8em;
+    margin-top: 0;
+    margin-bottom: 25px;
+}
+
+.testimonial-item {
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px dashed #eee;
+}
+
+.testimonial-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.testimonial-item .quote {
+    font-style: italic;
+    font-size: 1.1em;
+    line-height: 1.7;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.testimonial-item .author {
+    font-weight: bold;
+    color: #777;
+    font-size: 0.95em;
+}
+
+
+/* '일상 속 행운 활용 팁' 섹션 스타일 */
+.luck-tips-section {
+    margin-top: 40px;
+    margin-bottom: 40px;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    text-align: left;
+}
+
+.luck-tips-section h2 {
+    color: var(--h1-color);
+    font-size: 1.8em;
+    margin-top: 0;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.luck-tips-section .tip-item {
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px dashed #eee;
+}
+
+.luck-tips-section .tip-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.luck-tips-section .tip-item h3 {
+    font-size: 1.1em;
+    color: #555;
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
+.luck-tips-section .tip-item p {
+    font-size: 0.95em;
+    line-height: 1.5;
+    color: #777;
+}
+
+
+/* 반응형 디자인을 위한 미디어 쿼리 */
+
+/* 작은 화면 (모바일)에 대한 스타일 */
+@media (max-width: 600px) {
+    .container {
+        padding: 20px;
+        width: 95%;
+        margin: 10px auto;
+    }
+
+    h1 {
+        font-size: 1.8em;
+    }
+
+    .intro-section {
+        padding: 10px 15px;
+        margin-bottom: 25px;
+        font-size: 1em;
+    }
+
+    .intro-text.highlight {
+        font-size: 1.1em;
+    }
+
+    .intro-text.small-text {
+        font-size: 0.85em;
+    }
+
+    .start-button-container {
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    .daily-affirmation-section {
+        margin-top: 30px;
+        margin-bottom: 30px;
+        padding: 15px;
+    }
+
+    .daily-affirmation-section h2 {
+        font-size: 1.5em;
+        margin-bottom: 15px;
+    }
+
+    .affirmation-text {
+        font-size: 1em;
+    }
+
+    .how-it-works-section {
+        margin-top: 30px;
+        margin-bottom: 30px;
+        padding: 15px;
+    }
+
+    .how-it-works-section h2 {
+        font-size: 1.5em;
+        margin-bottom: 15px;
+    }
+
+    .step-item h3 {
+        font-size: 1em;
+    }
+
+    .step-item p {
+        font-size: 0.9em;
+    }
+
+    .creator-note-section {
+        margin-top: 30px;
+        margin-bottom: 30px;
+        padding: 15px;
+    }
+
+    .creator-note-section h2 {
+        font-size: 1.5em;
+        margin-bottom: 15px;
+    }
+
+    .creator-note-section p {
+        font-size: 0.95em;
+    }
+
+    .faq-section {
+        margin-top: 30px;
+        margin-bottom: 30px;
+        padding: 15px;
+    }
+
+    .faq-section h2 {
+        font-size: 1.5em;
+        margin-bottom: 15px;
+    }
+
+    .faq-item {
+        margin-bottom: 15px;
+    }
+
+    .faq-item h3 {
+        font-size: 1em;
+    }
+
+    .faq-item p {
+        font-size: 0.9em;
+    }
+
+    #question-text {
+        font-size: 1.1em;
+    }
+
+    .btn {
+        padding: 12px 15px;
+        font-size: 1em;
+    }
+
+    .result-container h2 {
+        font-size: 1.8em;
+    }
+
+    .result-container p {
+        font-size: 1em;
+    }
+
+    #lucky-description-text {
+        font-size: 1em;
+        margin-top: 15px;
+        margin-bottom: 20px;
+    }
+
+    .share-buttons {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .share-btn {
+        flex-basis: 100%;
+        max-width: unset;
+    }
+
+    .ad-container {
+        margin: 15px auto;
+        max-width: 95%;
+        min-height: 90px;
+    }
+
+    .footer-section {
+        margin-top: 30px;
+        font-size: 0.8em;
+    }
+
+    .symbolism-section {
+        margin-top: 30px;
+        margin-bottom: 30px;
+        padding: 15px;
+    }
+
+    .symbolism-section h2 {
+        font-size: 1.5em;
+        margin-bottom: 15px;
+    }
+
+    .symbolism-item h3 {
+        font-size: 1em;
+    }
+
+    .symbolism-item p {
+        font-size: 0.9em;
+    }
+
+    .testimonials-section {
+        margin-top: 30px;
+        margin-bottom: 30px;
+        padding: 15px;
+    }
+
+    .testimonials-section h2 {
+        font-size: 1.5em;
+        margin-bottom: 20px;
+    }
+
+    .testimonial-item {
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+    }
+
+    .testimonial-item .quote {
+        font-size: 1em;
+    }
+
+    .testimonial-item .author {
+        font-size: 0.9em;
+    }
+}
+
+/* 아주 작은 화면을 위한 추가 조정 */
+@media (max-width: 400px) {
+    .container {
+        padding: 15px;
+    }
+    h1 {
+        font-size: 1.6em;
+    }
+    .intro-section {
+        padding: 8px 10px;
+        margin-bottom: 20px;
+        font-size: 0.95em;
+    }
+    .intro-text.highlight {
+        font-size: 1.05em;
+    }
+    #question-text {
+        font-size: 1em;
+    }
+    .btn {
+        font-size: 0.95em;
+        padding: 10px 12px;
+    }
+    .result-container h2 {
+        font-size: 1.6em;
+    }
+    .result-container p {
+        font-size: 0.9em;
+    }
+    #lucky-description-text {
+        font-size: 0.9em;
+    }
+    .footer-section {
+        font-size: 0.75em;
+    }
+}
